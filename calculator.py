@@ -1,4 +1,5 @@
 import datetime
+import time
 
 INCORRECT_INPUT = "Incorrect input!"
 DELIMITER = '/'
@@ -12,6 +13,12 @@ raw date:
 
 raw lapse:
 '10' [10 days]
+
+raw timelet:
+'now'
+'21 11 12' [21:11:12]
+'11 12' [00:11:12]
+'12' [00:00:12]
 """
 
 # TODO input: lapse1, lapse2, lapse3, ...; output: sum
@@ -38,7 +45,7 @@ def process_datedate(user_input):
 
 
 def process_time_series(user_input):
-    pass
+    user_input = user_input.split()
 
 
 def process_date(raw_date):
@@ -46,19 +53,19 @@ def process_date(raw_date):
         return datetime.date.today()
 
     try:
-        raw_date = list(map(int, raw_date.split()))
+        date = list(map(int, raw_date.split()))
     except ValueError:
         return
 
-    raw_date.reverse()
-    length = len(raw_date)
+    date.reverse()
+    length = len(date)
 
-    if length > 3 or not length:
+    if not length or length > 3:
         return
 
     if length == 3:
         try:
-            return datetime.date(*raw_date)
+            return datetime.date(*date)
         except (TypeError, ValueError):
             return
 
@@ -67,12 +74,12 @@ def process_date(raw_date):
     if length == 1:
         this_month = datetime.date.today().month
         try:
-            return datetime.date(this_year, this_month, *raw_date)
+            return datetime.date(this_year, this_month, *date)
         except (TypeError, ValueError):
             return
 
     try:
-        return datetime.date(this_year, *raw_date)
+        return datetime.date(this_year, *date)
     except (TypeError, ValueError):
         return
 
@@ -82,6 +89,35 @@ def process_daylapse(raw_lapse):
         return datetime.timedelta(int(raw_lapse))
     except ValueError:
         return
+
+
+def process_timelet(raw_timelet):
+    if raw_timelet == 'now':
+        now = time.localtime()
+        return 0, now.tm_hour, now.tm_min, now.tm_sec
+
+    try:
+        raw_timelet = list(map(int, raw_timelet.split()))
+    except ValueError:
+        return
+
+    if len(raw_timelet) > 3:
+        return
+
+    raw_timelet = dict(enumerate(reversed(raw_timelet)))
+    timelet = (raw_timelet.get(2, 0), raw_timelet.get(1, 0), raw_timelet.get(0, 0))
+    return convert_timelet(timelet)
+
+
+def convert_timelet(timelet):
+    raw_hrs, raw_mins, raw_secs = timelet
+    secs = raw_secs % 60
+    raw_mins += raw_secs // 60
+    mins = raw_mins % 60
+    raw_hrs += raw_mins // 60
+    hrs = raw_hrs % 24
+    days = raw_hrs // 24
+    return days, hrs, mins, secs
 
 
 def process_ouput(output, delta):
@@ -135,6 +171,7 @@ def add(user_input):
 
 if __name__ == '__main__':
     pass
-    # print(between("today / 1 01"))
-    print(datetime.time())
+    print(process_time('302710'))
+
+
 
