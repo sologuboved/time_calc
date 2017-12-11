@@ -4,6 +4,9 @@ import time
 INCORRECT_INPUT = "Incorrect input!"
 DELIMITER = '/'
 DOT = '.'
+PLUS = '+'
+MINUS = '-'
+ASTERIX = '*'
 
 """
 raw date:
@@ -46,7 +49,16 @@ def process_datedate(user_input):
 
 
 def process_time_series(user_input):
-    user_input = user_input.split()
+    user_input = tuple(map(lambda i: i.strip(), user_input.split()))
+    print(user_input)
+    length = len(user_input)
+    if not length or length % 2 == 0:
+        return
+
+    curr_res = user_input[0]
+    ind = 1
+    while ind < length:
+        pass
 
 
 def process_date(raw_date):
@@ -98,27 +110,40 @@ def process_timelet(raw_timelet):
         return 0, now.tm_hour, now.tm_min, now.tm_sec
 
     try:
-        raw_timelet = list(map(int, raw_timelet.split(DOT)))
+        raw_timelet = dict(enumerate(reversed(list(map(int, raw_timelet.split(DOT))))))
     except ValueError:
         return
 
     if len(raw_timelet) > 3:
         return
 
-    raw_timelet = dict(enumerate(reversed(raw_timelet)))
-    timelet = (raw_timelet.get(2, 0), raw_timelet.get(1, 0), raw_timelet.get(0, 0))
-    return convert_timelet(timelet)
+    return raw_timelet.get(2, 0), raw_timelet.get(1, 0), raw_timelet.get(0, 0)
 
 
-def convert_timelet(timelet):
-    raw_hrs, raw_mins, raw_secs = timelet
+
+# def convert_timelet(timelet):
+#     raw_hrs, raw_mins, raw_secs = timelet
+#     secs = raw_secs % 60
+#     raw_mins += raw_secs // 60
+#     mins = raw_mins % 60
+#     raw_hrs += raw_mins // 60
+#     hrs = raw_hrs % 24
+#     days = raw_hrs // 24
+#     return days, hrs, mins, secs
+
+
+def convert_to_dhms(raw_secs):
     secs = raw_secs % 60
-    raw_mins += raw_secs // 60
+    raw_mins = raw_secs // 60
     mins = raw_mins % 60
-    raw_hrs += raw_mins // 60
+    raw_hrs = raw_mins // 60
     hrs = raw_hrs % 24
     days = raw_hrs // 24
     return days, hrs, mins, secs
+
+
+def convert_to_secs(days, hours, mins, secs):
+    return days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs
 
 
 def process_ouput(output, delta):
@@ -166,13 +191,11 @@ def between(user_input):
         return INCORRECT_INPUT
 
 
-def add(user_input):
-    pass
-
-
 if __name__ == '__main__':
     pass
-    print(process_timelet('11.12.13'))
+    # print(convert_to_dhms(60))
+    # print(process_time_series("25.12 + 33.02 - 24.7"))
+    # print(process_timelet('1.a'))
 
 
 
