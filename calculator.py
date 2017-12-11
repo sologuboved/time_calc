@@ -7,13 +7,23 @@ DELIMITER = '/'
 # TODO input: date, num of days; output: date  num of days ago + day of week
 # TODO input: date1, date2; output: num of days between date1 and date2
 # TODO input: time1, time2, time3, ...; output: sum
+# TODO reverse dates in input
 
 
-def process_input(user_input):
+def process_datelapse(user_input):
     user_input = map(lambda i: i.strip(), user_input.split(DELIMITER))
     try:
         raw_date, raw_lapse = user_input
         return process_date(raw_date), process_lapse(raw_lapse)
+    except ValueError:
+        return None, None
+
+
+def process_datedate(user_input):
+    user_input = map(lambda i: i.strip(), user_input.split(DELIMITER))
+    try:
+        start, end = map(lambda i: process_date(i), user_input)
+        return start, end
     except ValueError:
         return None, None
 
@@ -23,10 +33,11 @@ def process_date(raw_date):
         return datetime.date.today()
 
     try:
-        raw_date = tuple(map(int, raw_date.split()))
+        raw_date = list(map(int, raw_date.split()))
     except ValueError:
         return
 
+    raw_date.reverse()
     length = len(raw_date)
 
     if length > 3 or not length:
@@ -60,32 +71,46 @@ def process_lapse(raw_lapse):
         return
 
 
-def process_ouput(date):
-    return date.strftime("%d %B %Y, %A")
+def process_ouput(output, delta):
+    if delta:
+        output = output.days
+        if output == 1:
+            inflection = ''
+        else:
+            inflection = 's'
+        return "%d day%s" % (output, inflection)
+
+    return output.strftime("%d %B %Y, %A")
 
 
 def after(user_input):
-    date, lapse = process_input(user_input)
+    date, lapse = process_datelapse(user_input)
     if not (date and lapse):
         return INCORRECT_INPUT
     try:
-        return process_ouput(date + lapse)
+        return process_ouput(date + lapse, False)
     except OverflowError:
         return INCORRECT_INPUT
 
 
 def before(user_input):
-    date, lapse = process_input(user_input)
+    date, lapse = process_datelapse(user_input)
     if not (date and lapse):
         return INCORRECT_INPUT
     try:
-        return process_ouput(date - lapse)
+        return process_ouput(date - lapse, False)
     except OverflowError:
         return INCORRECT_INPUT
 
 
 def between(user_input):
-    pass
+    start, end = process_datedate(user_input)
+    if not (start and end):
+        return INCORRECT_INPUT
+    try:
+        return process_ouput(abs(end - start), True)
+    except OverflowError:
+        return INCORRECT_INPUT
 
 
 def add(user_input):
@@ -107,6 +132,7 @@ if __name__ == '__main__':
     # s = ''
     # print(not len(s.split()))
     # print(after('a', '2'))
-    print(after("today / 1000000"))
+    # print(after("today / 1000000"))
+    print(between("today / 1 01"))
 
 
