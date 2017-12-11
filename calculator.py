@@ -23,7 +23,7 @@ def process_datelapse(user_input):
     user_input = map(lambda i: i.strip(), user_input.split(DELIMITER))
     try:
         raw_date, raw_lapse = user_input
-        return process_date(raw_date), process_lapse(raw_lapse)
+        return process_date(raw_date), process_daylapse(raw_lapse)
     except ValueError:
         return None, None
 
@@ -35,6 +35,10 @@ def process_datedate(user_input):
         return start, end
     except ValueError:
         return None, None
+
+
+def process_time_series(user_input):
+    pass
 
 
 def process_date(raw_date):
@@ -73,7 +77,7 @@ def process_date(raw_date):
         return
 
 
-def process_lapse(raw_lapse):
+def process_daylapse(raw_lapse):
     try:
         return datetime.timedelta(int(raw_lapse))
     except ValueError:
@@ -93,7 +97,7 @@ def process_ouput(output, delta):
 
 
 def after(user_input):
-    # raw date / raw lapse
+    # raw date DELIMITER raw lapse
     date, lapse = process_datelapse(user_input)
     if not (date and lapse):
         return INCORRECT_INPUT
@@ -104,7 +108,7 @@ def after(user_input):
 
 
 def before(user_input):
-    # raw date / raw lapse
+    # raw date DELIMITER raw lapse
     date, lapse = process_datelapse(user_input)
     if not (date and lapse):
         return INCORRECT_INPUT
@@ -115,7 +119,7 @@ def before(user_input):
 
 
 def between(user_input):
-    # raw date / raw date
+    # raw date DELIMITER raw date
     start, end = process_datedate(user_input)
     if not (start and end):
         return INCORRECT_INPUT
