@@ -1,11 +1,21 @@
 import datetime
 
 INCORRECT_INPUT = "Incorrect input!"
+DELIMITER = '/'
 
 # TODO input: date, num of days; output: date after num of days elapsed + day of week
 # TODO input: date, num of days; output: date  num of days ago + day of week
 # TODO input: date1, date2; output: num of days between date1 and date2
 # TODO input: time1, time2, time3, ...; output: sum
+
+
+def process_input(user_input):
+    user_input = map(lambda i: i.strip(), user_input.split(DELIMITER))
+    try:
+        raw_date, raw_lapse = user_input
+        return process_date(raw_date), process_lapse(raw_lapse)
+    except ValueError:
+        return None, None
 
 
 def process_date(raw_date):
@@ -15,21 +25,18 @@ def process_date(raw_date):
     try:
         raw_date = tuple(map(int, raw_date.split()))
     except ValueError:
-        return INCORRECT_INPUT
+        return
 
-    print(raw_date)
     length = len(raw_date)
-    print(length)
-    print()
 
     if length > 3 or not length:
-        return INCORRECT_INPUT
+        return
 
     if length == 3:
         try:
             return datetime.date(*raw_date)
         except (TypeError, ValueError):
-            return INCORRECT_INPUT
+            return
 
     this_year = datetime.date.today().year
 
@@ -38,16 +45,31 @@ def process_date(raw_date):
         try:
             return datetime.date(this_year, this_month, *raw_date)
         except (TypeError, ValueError):
-            return INCORRECT_INPUT
+            return
 
     try:
         return datetime.date(this_year, *raw_date)
     except (TypeError, ValueError):
+        return
+
+
+def process_lapse(raw_lapse):
+    try:
+        return datetime.timedelta(int(raw_lapse))
+    except ValueError:
+        return
+
+
+def after(user_input):
+    date, lapse = process_input(user_input)
+    if not (date and lapse):
         return INCORRECT_INPUT
+    return (date + lapse).strftime("%d %B %Y, %A")
 
-
-def after(raw_date, lapse):
-    pass
+# >>> d.strftime("%A %d. %B %Y")
+# 'Monday 11. March 2002'
+# >>> 'The {1} is {0:%d}, the {2} is {0:%B}.'.format(d, "day", "month")
+# 'The day is 11, the month is March.'
 
 
 def before():
@@ -70,6 +92,7 @@ if __name__ == '__main__':
     # print(datetime.date(*l))
     # s = ''
     # print(not len(s.split()))
-    print(process_date('15'))
+    # print(after('a', '2'))
+    print(after("today / 2"))
 
 
