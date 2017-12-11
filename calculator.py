@@ -60,28 +60,42 @@ def process_lapse(raw_lapse):
         return
 
 
+def process_ouput(date):
+    return date.strftime("%d %B %Y, %A")
+
+
 def after(user_input):
     date, lapse = process_input(user_input)
     if not (date and lapse):
         return INCORRECT_INPUT
-    return (date + lapse).strftime("%d %B %Y, %A")
+    try:
+        return process_ouput(date + lapse)
+    except OverflowError:
+        return INCORRECT_INPUT
+
+
+def before(user_input):
+    date, lapse = process_input(user_input)
+    if not (date and lapse):
+        return INCORRECT_INPUT
+    try:
+        return process_ouput(date - lapse)
+    except OverflowError:
+        return INCORRECT_INPUT
+
+
+def between(user_input):
+    pass
+
+
+def add(user_input):
+    pass
+
 
 # >>> d.strftime("%A %d. %B %Y")
 # 'Monday 11. March 2002'
 # >>> 'The {1} is {0:%d}, the {2} is {0:%B}.'.format(d, "day", "month")
 # 'The day is 11, the month is March.'
-
-
-def before():
-    pass
-
-
-def between():
-    pass
-
-
-def add():
-    pass
 
 
 if __name__ == '__main__':
@@ -93,6 +107,6 @@ if __name__ == '__main__':
     # s = ''
     # print(not len(s.split()))
     # print(after('a', '2'))
-    print(after("today / 2"))
+    print(after("today / 1000000"))
 
 
