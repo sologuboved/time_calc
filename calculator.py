@@ -3,11 +3,20 @@ import datetime
 INCORRECT_INPUT = "Incorrect input!"
 DELIMITER = '/'
 
-# TODO input: date, num of days; output: date after num of days elapsed + day of week
-# TODO input: date, num of days; output: date  num of days ago + day of week
-# TODO input: date1, date2; output: num of days between date1 and date2
-# TODO input: time1, time2, time3, ...; output: sum
-# TODO reverse dates in input
+"""
+raw date:
+'today'
+'11 12 2017' [11 December 2017]
+'11 12' [11 December same year as today]
+'11' [11 same month and year as today]
+
+raw lapse:
+'10' [10 days]
+"""
+
+# TODO input: lapse1, lapse2, lapse3, ...; output: sum
+# TODO input: date time, lapse; output: time after lapse
+# TODO input: date time, lapse; output: time before lapse
 
 
 def process_datelapse(user_input):
@@ -84,6 +93,7 @@ def process_ouput(output, delta):
 
 
 def after(user_input):
+    # raw date / raw lapse
     date, lapse = process_datelapse(user_input)
     if not (date and lapse):
         return INCORRECT_INPUT
@@ -94,6 +104,7 @@ def after(user_input):
 
 
 def before(user_input):
+    # raw date / raw lapse
     date, lapse = process_datelapse(user_input)
     if not (date and lapse):
         return INCORRECT_INPUT
@@ -104,6 +115,7 @@ def before(user_input):
 
 
 def between(user_input):
+    # raw date / raw date
     start, end = process_datedate(user_input)
     if not (start and end):
         return INCORRECT_INPUT
@@ -117,22 +129,8 @@ def add(user_input):
     pass
 
 
-# >>> d.strftime("%A %d. %B %Y")
-# 'Monday 11. March 2002'
-# >>> 'The {1} is {0:%d}, the {2} is {0:%B}.'.format(d, "day", "month")
-# 'The day is 11, the month is March.'
-
-
 if __name__ == '__main__':
     pass
-    # print(abs(int(str(datetime.date(2016, 11, 12) - datetime.date(2017, 12, 11)).split()[0])))
-    # print(datetime.date((2000, 2, 10)))
-    # l = [2000, 1, 1]
-    # print(datetime.date(*l))
-    # s = ''
-    # print(not len(s.split()))
-    # print(after('a', '2'))
-    # print(after("today / 1000000"))
-    print(between("today / 1 01"))
-
+    # print(between("today / 1 01"))
+    print(datetime.time())
 
