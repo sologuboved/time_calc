@@ -3,6 +3,7 @@ import time
 
 INCORRECT_INPUT = "Incorrect input!"
 DELIMITER = '/'
+DOT = '.'
 
 """
 raw date:
@@ -97,7 +98,7 @@ def process_timelet(raw_timelet):
         return 0, now.tm_hour, now.tm_min, now.tm_sec
 
     try:
-        raw_timelet = list(map(int, raw_timelet.split()))
+        raw_timelet = list(map(int, raw_timelet.split(DOT)))
     except ValueError:
         return
 
@@ -171,7 +172,7 @@ def add(user_input):
 
 if __name__ == '__main__':
     pass
-    print(process_time('302710'))
+    print(process_timelet('11.12.13'))
 
 
 
