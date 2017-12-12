@@ -8,7 +8,16 @@ def calculate_time_series(user_input):
     return process_time_output(res, delta=True)
 
 
-# def
+def time_after(user_input):
+    pass
+
+
+def time_before(user_input):
+    pass
+
+
+def time_between(user_input):
+    pass
 
 
 if __name__ == '__main__':

@@ -21,9 +21,9 @@ raw timelet:
 # TODO input: date time, lapse; output: time after lapse
 # TODO input: date time, lapse; output: time before lapse
 
-print(after("today / 10"))
-print(before("11 / 10"))
-print(between("13.12 / 1. 3. 2018"))
+print(date_after("today / 10"))
+print(date_before("11 / 10"))
+print(days_between("13.12 / 1. 3. 2018"))
 
 # print(calculate_time_series("17.12 + 1.10 - 5"))
 # print(calculate_time_series("23.55.55 + 6.6 + 1"))
