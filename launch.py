@@ -1,11 +1,11 @@
 from calculate_days import *
-from process_hours import *
+from calculate_hours import *
 
 """
 raw date:
 'today'
-'11 12 2017' [11 December 2017]
-'11 12' [11 December same year as today]
+'11.12.2017' [11 December 2017]
+'11.12' [11 December same year as today]
 '11' [11 same month and year as today]
 
 raw lapse:
@@ -23,10 +23,11 @@ raw timelet:
 
 print(after("today / 10"))
 print(before("11 / 10"))
-print(between("today / 1 3 2018"))
+print(between("13.12 / 1. 3. 2018"))
 
-print(process_time_output(process_time_series("17.12 + 1.10 - 5"), delta=True))
-print(process_time_output(process_time_series("23.55.55 + 6.6 + 1"), delta=True))
-print(process_time_output(process_time_series("27.0 * 2"), delta=True))
-print(process_time_output(process_time_series("1.56.17 - 8.0 - 1.0.0 + 0 + 20.7 - 1.0"), delta=True))
+# print(calculate_time_series("17.12 + 1.10 - 5"))
+# print(calculate_time_series("23.55.55 + 6.6 + 1"))
+# print(calculate_time_series("27.0 * 2"))
+# print(calculate_time_series("1.56.17 - 8.0 - 1.0.0 + 0 + 20.7 - 1.0"))
+
 

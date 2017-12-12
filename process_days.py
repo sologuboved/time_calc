@@ -25,7 +25,7 @@ def process_date(raw_date):
         return datetime.date.today()
 
     try:
-        date = list(map(int, raw_date.split()))
+        date = list(map(int, map(lambda i: i.strip(), raw_date.split(DOT))))
     except ValueError:
         return
 
