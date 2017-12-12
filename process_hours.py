@@ -55,26 +55,40 @@ def process_timelapse(user_input):
 
     try:
         raw_datetime, raw_lapse = user_input
-        raw_datetime = raw_datetime.split()
-
-        try:
-            raw_date, raw_time = raw_datetime
-
-        except ValueError:
-            if len(raw_datetime) == 1:
-                raw_date = 'today'
-                raw_time = raw_datetime[0]
-            else:
-                return None, None, None
-
-        return process_date(raw_date), process_timelet(raw_time), process_timelet(raw_lapse)
-
     except ValueError:
         return None, None, None
 
+    date, timelet = process_datetime(raw_datetime)
+    return date, timelet, process_timelet(raw_lapse)
+
 
 def process_timetime(user_input):
-    pass
+    user_input = map(lambda i: i.strip(), user_input.split(DELIMITER))
+
+    try:
+        start, end = user_input
+    except ValueError:
+        return None, None, None, None
+
+    start_date, start_time = process_datetime(start)
+    end_date, end_time = process_datetime(end)
+    return start_date, start_time, end_date, end_time
+
+
+def process_datetime(raw_datetime):
+    raw_datetime = raw_datetime.split()
+
+    try:
+        raw_date, raw_time = raw_datetime
+
+    except ValueError:
+        if len(raw_datetime) == 1:
+            raw_date = 'today'
+            raw_time = raw_datetime[0]
+        else:
+            return None, None
+
+    return process_date(raw_date), process_timelet(raw_time)
 
 
 def process_time_output(output, delta):

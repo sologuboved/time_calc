@@ -17,8 +17,11 @@ def time_before(user_input):
 
 
 def time_between(user_input):
-    pass
+    print(process_timetime(user_input))
 
 
 if __name__ == '__main__':
-    time_after("17 17.14.0 / 2.35.07")
+    # time_after("17 17.14.0 / 2.35.07")
+    # time_after("17 17.a.0 / 2.35.07")
+    time_between("17 now / 20.12 2.35.07")
+
