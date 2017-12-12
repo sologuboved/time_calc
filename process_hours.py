@@ -3,7 +3,7 @@ from global_vars import *
 
 
 def process_time_series(user_input):
-    user_input = tuple(map(lambda i: i.strip(), user_input.split()))
+    user_input = user_input.split()
     length = len(user_input)
     if not length or length % 2 == 0:
         return
