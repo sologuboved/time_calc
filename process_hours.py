@@ -9,29 +9,61 @@ def process_time_series(user_input):
     if not length or length % 2 == 0:
         return
 
-    first_timelet = process_timelet(user_input[0])
-    if not first_timelet:
-        return
-    curr_res = convert_to_secs(*first_timelet)
-    if not curr_res:
-        return
-    ind = 1
-    while ind + 1 < length:
-        sign = user_input[ind]
-
-        if sign == PLUS:
-            curr_res = add(curr_res, user_input[ind + 1], negative=False)
-        elif sign == MINUS:
-            curr_res = add(curr_res, user_input[ind + 1], negative=True)
-        elif sign == ASTERIX:
-            curr_res = multiply(curr_res, user_input[ind + 1])
+    processed_series = list()
+    even = True
+    after_asterix = False
+    for item in user_input:
+        if even:
+            if after_asterix:
+                try:
+                    item = int(item)
+                except ValueError:
+                    return
+                after_asterix = False
+            else:
+                item = process_timelet(item)
+            if not item:
+                return
+            processed_series.append(item)
         else:
-            return
+            if item == ASTERIX:
+                after_asterix = True
+            elif item != PLUS and item != MINUS:
+                return
+            processed_series.append(item)
+        even = not even
+    return processed_series
 
-        if curr_res is None:
-            return
-        ind += 2
-    return convert_to_dhms(curr_res)
+
+# def process_time_series(user_input):
+#     user_input = user_input.split()
+#     length = len(user_input)
+#     if not length or length % 2 == 0:
+#         return
+#
+    # first_timelet = process_timelet(user_input[0])
+    # if not first_timelet:
+    #     return
+    # curr_res = convert_to_secs(*first_timelet)
+    # if not curr_res:
+    #     return
+    # ind = 1
+    # while ind + 1 < length:
+    #     sign = user_input[ind]
+    #
+    #     if sign == PLUS:
+    #         curr_res = add(curr_res, user_input[ind + 1], negative=False)
+    #     elif sign == MINUS:
+    #         curr_res = add(curr_res, user_input[ind + 1], negative=True)
+    #     elif sign == ASTERIX:
+    #         curr_res = multiply(curr_res, user_input[ind + 1])
+    #     else:
+    #         return
+    #
+    #     if curr_res is None:
+    #         return
+    #     ind += 2
+    # return convert_to_dhms(curr_res)
 
 
 def process_timelet(raw_timelet):
@@ -88,7 +120,13 @@ def process_datetime(raw_datetime):
         else:
             return None, None
 
-    return process_date(raw_date), process_timelet(raw_time)
+    timelet = process_timelet(raw_time)
+    if timelet:
+        days, hrs, mins, secs = timelet
+        if hrs > 23 or mins > 59 or secs > 59:
+            timelet = None
+
+    return process_date(raw_date), timelet
 
 
 def process_time_output(output, delta):
@@ -144,4 +182,8 @@ def multiply(secs, integer):
 
 
 if __name__ == '__main__':
-    pass
+    print(process_time_series("17.12 + 1.10 - 5"))
+    print(process_time_series("23.55.55 + 6.6 + 1"))
+    print(process_time_series("27.0 * 2"))
+    print(process_time_series("1.56.17 - 8.0 - 1.0.0 + 1 + 20.7 - 1.0"))
+    print(process_time_series("1.56.17 - 8.0 - 1.0.0 * 2 + 1 + 20.7 - 1.0"))
