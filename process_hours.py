@@ -1,5 +1,6 @@
 import datetime
 from global_vars import *
+from process_days import process_date
 
 
 def process_time_series(user_input):
@@ -47,6 +48,33 @@ def process_timelet(raw_timelet):
         return
 
     return raw_timelet.get(3, 0), raw_timelet.get(2, 0), raw_timelet.get(1, 0), raw_timelet.get(0, 0)
+
+
+def process_timelapse(user_input):
+    user_input = map(lambda i: i.strip(), user_input.split(DELIMITER))
+
+    try:
+        raw_datetime, raw_lapse = user_input
+        raw_datetime = raw_datetime.split()
+
+        try:
+            raw_date, raw_time = raw_datetime
+
+        except ValueError:
+            if len(raw_datetime) == 1:
+                raw_date = 'today'
+                raw_time = raw_datetime[0]
+            else:
+                return None, None, None
+
+        return process_date(raw_date), process_timelet(raw_time), process_timelet(raw_lapse)
+
+    except ValueError:
+        return None, None, None
+
+
+def process_timetime(user_input):
+    pass
 
 
 def process_time_output(output, delta):

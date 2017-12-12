@@ -9,7 +9,7 @@ def calculate_time_series(user_input):
 
 
 def time_after(user_input):
-    pass
+    print(process_timelapse(user_input))
 
 
 def time_before(user_input):
@@ -21,4 +21,4 @@ def time_between(user_input):
 
 
 if __name__ == '__main__':
-    pass
+    time_after("17 17.14.0 / 2.35.07")
