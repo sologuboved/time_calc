@@ -4,31 +4,59 @@ from global_vars import *
 
 def process_time_series(user_input):
     user_input = tuple(map(lambda i: i.strip(), user_input.split()))
-    print(user_input)
     length = len(user_input)
     if not length or length % 2 == 0:
         return
 
-    curr_res = user_input[0]
+    first_timelet = process_timelet(user_input[0])
+    if not first_timelet:
+        return
+    curr_res = convert_to_secs(*first_timelet)
+    if not curr_res:
+        return
     ind = 1
-    while ind < length:
-        pass
+    while ind + 1 < length:
+        sign = user_input[ind]
+
+        if sign == PLUS:
+            curr_res = add(curr_res, user_input[ind + 1], negative=False)
+        elif sign == MINUS:
+            curr_res = add(curr_res, user_input[ind + 1], negative=True)
+        elif sign == ASTERIX:
+            curr_res = multiply(curr_res, user_input[ind + 1])
+        else:
+            return
+
+        if curr_res is None:
+            return
+        ind += 2
+    return convert_to_dhms(curr_res)
 
 
 def process_timelet(raw_timelet):
     if raw_timelet == 'now':
         now = datetime.datetime.now()
-        return now.hour, now.minute, now.second
+        return 0, now.hour, now.minute, now.second
 
     try:
         raw_timelet = dict(enumerate(reversed(list(map(int, raw_timelet.split(DOT))))))
     except ValueError:
         return
 
-    if len(raw_timelet) > 3:
+    if len(raw_timelet) > 4:
         return
 
-    return raw_timelet.get(2, 0), raw_timelet.get(1, 0), raw_timelet.get(0, 0)
+    return raw_timelet.get(3, 0), raw_timelet.get(2, 0), raw_timelet.get(1, 0), raw_timelet.get(0, 0)
+
+
+def process_time_output(output, delta):
+    if delta:
+        days, hrs, mins, secs = output
+        if days == 1:
+            inflection = ''
+        else:
+            inflection = 's'
+        return "%d day%s, %d:%d.%d" % (days, inflection, hrs, mins, secs)
 
 
 def convert_to_dhms(raw_secs):
@@ -45,6 +73,23 @@ def convert_to_secs(days, hours, mins, secs):
     return days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs
 
 
+def add(secs, raw_timelet, negative):
+    timelet = process_timelet(raw_timelet)
+    if not timelet:
+        return
+    if negative:
+        return secs - convert_to_secs(*timelet)
+    return secs + convert_to_secs(*timelet)
+
+
+def multiply(secs, integer):
+    try:
+        integer = int(integer)
+    except ValueError:
+        return
+    return secs * integer
+
+
 # def convert_timelet(timelet):
 #     raw_hrs, raw_mins, raw_secs = timelet
 #     secs = raw_secs % 60
@@ -57,5 +102,4 @@ def convert_to_secs(days, hours, mins, secs):
 
 
 if __name__ == '__main__':
-    # print(convert_to_secs(3, 0, 5, 0))
-    print(process_timelet('now'))
+    print(datetime.datetime.now())

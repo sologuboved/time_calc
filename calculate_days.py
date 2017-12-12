@@ -7,7 +7,7 @@ def after(user_input):
     if not (date and lapse):
         return INVALID_INPUT
     try:
-        return process_ouput(date + lapse, False)
+        return process_date_ouput(date + lapse, False)
     except OverflowError:
         return INVALID_INPUT
 
@@ -18,7 +18,7 @@ def before(user_input):
     if not (date and lapse):
         return INVALID_INPUT
     try:
-        return process_ouput(date - lapse, False)
+        return process_date_ouput(date - lapse, False)
     except OverflowError:
         return INVALID_INPUT
 
@@ -29,6 +29,6 @@ def between(user_input):
     if not (start and end):
         return INVALID_INPUT
     try:
-        return process_ouput(abs(end - start), True)
+        return process_date_ouput(abs(end - start), True)
     except OverflowError:
         return INVALID_INPUT

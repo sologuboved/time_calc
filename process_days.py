@@ -63,7 +63,7 @@ def process_daylapse(raw_lapse):
         return
 
 
-def process_ouput(output, delta):
+def process_date_ouput(output, delta):
     if delta:
         output = output.days
         if output == 1:
