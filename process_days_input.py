@@ -61,15 +61,3 @@ def process_daylapse(raw_lapse):
         return datetime.timedelta(int(raw_lapse))
     except ValueError:
         return
-
-
-def process_date_ouput(output, delta):
-    if delta:
-        output = output.days
-        if output == 1:
-            inflection = ''
-        else:
-            inflection = 's'
-        return "%d day%s" % (output, inflection)
-
-    return output.strftime("%d %B %Y, %A")

@@ -1,6 +1,6 @@
 import datetime
 from global_vars import *
-from process_days import process_date
+from process_days_input import process_date
 
 
 def process_time_series(user_input):
@@ -129,28 +129,30 @@ def process_datetime(raw_datetime):
     return process_date(raw_date), timelet
 
 
-def process_time_output(output, delta):
-    if delta:
-        days, hrs, mins, secs = output
-        if days == 1:
-            inflection = ''
-        else:
-            inflection = 's'
-        return "%d day%s, %d:%d.%d" % (days, inflection, hrs, mins, secs)
-
-
 def convert_to_dhms(raw_secs):
+    if raw_secs < 0:
+        raw_secs = abs(raw_secs)
+        mult_by = -1
+    else:
+        mult_by = 1
     secs = raw_secs % 60
     raw_mins = raw_secs // 60
     mins = raw_mins % 60
     raw_hrs = raw_mins // 60
     hrs = raw_hrs % 24
     days = raw_hrs // 24
-    return days, hrs, mins, secs
+    return mult_by * days, hrs, mins, secs
 
 
 def convert_to_secs(days, hours, mins, secs):
-    return days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs
+    if days < 0:
+        mult_by = -1
+        days = abs(days)
+    else:
+        mult_by = 1
+
+    print('convert_to_secs', mult_by * (days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs))
+    return mult_by * (days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs)
 
 
 def add(secs, raw_timelet, negative):
