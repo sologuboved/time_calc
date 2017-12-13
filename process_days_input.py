@@ -20,42 +20,6 @@ def process_datedate(user_input):
         return None, None
 
 
-# def process_date(raw_date):
-#     if raw_date == 'today':
-#         return datetime.date.today()
-#
-#     try:
-#         date = list(map(int, map(lambda i: i.strip(), raw_date.split(DOT))))
-#     except ValueError:
-#         return
-#
-#     date.reverse()
-#     length = len(date)
-#
-#     if not length or length > 3:
-#         return
-#
-#     if length == 3:
-#         try:
-#             return datetime.date(*date)
-#         except (TypeError, ValueError):
-#             return
-#
-#     this_year = datetime.date.today().year
-#
-#     if length == 1:
-#         this_month = datetime.date.today().month
-#         try:
-#             return datetime.date(this_year, this_month, *date)
-#         except (TypeError, ValueError):
-#             return
-#
-#     try:
-#         return datetime.date(this_year, *date)
-#     except (TypeError, ValueError):
-#         return
-
-
 def process_date(raw_date):
     if raw_date == 'today':
         return datetime.datetime.now()

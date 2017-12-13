@@ -36,6 +36,8 @@ raw timelet:
 # print(time_after("13.12.2017 0.0.0 / 73.1.1"))
 # print(time_after("14.12.2017 23.59.0 / 120"))
 
-print(time_before("14.12.2017 0.10.0 / 48.11.0"))
+# print(time_before("14.12.2017 0.10.0 / 48.11.0"))
 
+print(time_between("now / 13.0.0"))
+print(time_between("13.12.2017 12.28.0 / 12.12.2017 0.59.0"))  # 1 day, 11:29:00
 
