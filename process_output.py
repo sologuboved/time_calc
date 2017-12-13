@@ -18,4 +18,4 @@ def process_time_output(output, with_date):
         return output.strftime("%d %B %Y, %A %H:%M:%S")
 
     hrs, mins, secs = output
-    return datetime.timedelta(hours=hrs, minutes=mins, seconds=secs)
+    return str(datetime.timedelta(hours=hrs, minutes=mins, seconds=secs))

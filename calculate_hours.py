@@ -67,4 +67,4 @@ def time_between(user_input):
     hrs, mins, secs = end_time
     end_date = end_date.replace(hour=hrs, minute=mins, second=secs)
 
-    return abs(end_date - start_date)
+    return str(abs(end_date - start_date))
