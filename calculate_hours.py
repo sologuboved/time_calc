@@ -2,9 +2,9 @@ from process_hours_input import *
 from process_output import *
 
 
-def calculate_time_series(user_input):
+def calculate_time_sequence(user_input):
     # raw timelet {+, -, *} raw timelet ...
-    processed_series = process_time_series(user_input)
+    processed_series = process_time_sequence(user_input)
     if not processed_series:
         return INVALID_INPUT
 

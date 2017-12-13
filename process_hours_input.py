@@ -3,7 +3,7 @@ from global_vars import *
 from process_days_input import process_date
 
 
-def process_time_series(user_input):
+def process_time_sequence(user_input):
     user_input = user_input.split()
     length = len(user_input)
     if not length or length % 2 == 0:
@@ -123,11 +123,3 @@ def convert_to_secs(*units):
     hours, mins, secs = units
 
     return mult_by * (hours * 60 * 60 + mins * 60 + secs)
-
-
-if __name__ == '__main__':
-    print(process_time_series("17.12 + 1.10 - 5"))
-    print(process_time_series("23.55.55 + 6.6 + 1"))
-    print(process_time_series("27.0 * 2"))
-    print(process_time_series("1.56.17 - 8.0 - 1.0.0 + 1 + 20.7 - 1.0"))
-    print(process_time_series("1.56.17 - 8.0 - 1.0.0 * 2 + 1 + 20.7 - 1.0"))
