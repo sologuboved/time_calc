@@ -1,3 +1,6 @@
+import datetime
+
+
 def process_date_ouput(output, delta):
     if delta:
         output = output.days
@@ -10,10 +13,9 @@ def process_date_ouput(output, delta):
     return output.strftime("%d %B %Y, %A")
 
 
-def process_time_output(output, with_days):
-    if with_days:
-        hrs, mins, secs = output
-        return "%d:%d:%d" % (hrs, mins, secs)
+def process_time_output(output, with_date):
+    if with_date:
+        return output.strftime("%d %B %Y, %A %H:%M:%S")
 
     hrs, mins, secs = output
-    return "%d:%d.%d" % (hrs, mins, secs)
+    return datetime.timedelta(hours=hrs, minutes=mins, seconds=secs)

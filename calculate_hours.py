@@ -23,7 +23,7 @@ def calculate_time_series(user_input):
             curr_res *= processed_series[ind + 1]
         ind += 2
 
-    return process_time_output(convert_to_dhms(curr_res), with_days=True)
+    return process_time_output(convert_to_dhms(curr_res), with_date=False)
 
 
 def time_after(user_input):
@@ -38,7 +38,7 @@ def time_after(user_input):
     delta = datetime.timedelta(hours=hrs, minutes=mins, seconds=secs)
     date += delta
 
-    return date
+    return process_time_output(date, with_date=True)
 
 
 def time_before(user_input):
@@ -53,7 +53,7 @@ def time_before(user_input):
     delta = datetime.timedelta(hours=hrs, minutes=mins, seconds=secs)
     date -= delta
 
-    return date
+    return process_time_output(date, with_date=True)
 
 
 def time_between(user_input):
