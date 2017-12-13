@@ -11,6 +11,32 @@ def start(bot, update):
     bot.send_message(chat_id=chat_id, text=text)
 
 
+def description(bot, update):
+    text = "Commands:\n\n" \
+            "/daft - raw date %s raw lapse\n" \
+            "/dbef - raw date %s raw lapse\n" \
+            "/dbetw - raw date %s raw date\n\n" \
+            "/taft - raw date raw timelet %s raw timelet\n" \
+            "/tbef - raw date raw timelet %s raw timelet\n" \
+            "/tbetw - raw date raw timelet %s raw date raw timelet\n" \
+            "/tseq - raw timelet {+, -, *} raw timelet {+, -, *} ... \n\n\n" \
+            "raw date:\n\n" \
+            "'today'\n" \
+            "'11.12.2017' [11 December 2017]\n" \
+            "'11.12' [11 December same year as today]\n" \
+            "'11' [11 same month and year as today]\n\n" \
+            "raw lapse:\n\n" \
+            "'10' [10 days]\n\n" \
+            "raw timelet:\n\n" \
+            "'now'\n" \
+            "'21.11.12' [21:11:12]\n" \
+            "'11.12' [00:11:12]\n" \
+            "'12' [00:00:12]\n" % (DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER)
+
+    chat_id = update.message.chat_id
+    bot.send_message(chat_id=chat_id, text=text)
+
+
 def daft(bot, update):
     # /daft today / 10
     try:
@@ -116,6 +142,7 @@ if __name__ == '__main__':
     dispatcher = updater.dispatcher
 
     start_handler = CommandHandler('start', start)
+    help_handler = CommandHandler('help', description)
     daft_handler = CommandHandler('daft', daft)
     dbef_handler = CommandHandler('dbef', dbef)
     dbetw_handler = CommandHandler('dbetw', dbetw)
@@ -125,6 +152,7 @@ if __name__ == '__main__':
     tseq_handler = CommandHandler('tseq', tseq)
 
     dispatcher.add_handler(start_handler)
+    dispatcher.add_handler(help_handler)
     dispatcher.add_handler(daft_handler)
     dispatcher.add_handler(dbef_handler)
     dispatcher.add_handler(dbetw_handler)

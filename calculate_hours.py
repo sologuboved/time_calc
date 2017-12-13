@@ -27,7 +27,7 @@ def calculate_time_sequence(user_input):
 
 
 def time_after(user_input):
-    # raw date raw timelet / raw timelet
+    # raw date raw timelet DELIMITER raw timelet
     date, initial_timelet, lapse = process_timelapse(user_input)
     if not (date and initial_timelet and lapse):
         return INVALID_INPUT
@@ -42,7 +42,7 @@ def time_after(user_input):
 
 
 def time_before(user_input):
-    # raw date raw timelet / raw timelet
+    # raw date raw timelet DELIMITER raw timelet
     date, initial_timelet, lapse = process_timelapse(user_input)
     if not (date and initial_timelet and lapse):
         return INVALID_INPUT
@@ -57,7 +57,7 @@ def time_before(user_input):
 
 
 def time_between(user_input):
-    # raw date raw timelet / raw date raw timelet
+    # raw date raw timelet DELIMITER raw date raw timelet
     start_date, start_time, end_date, end_time = process_timetime(user_input)
     if not (start_date and start_time and end_date and end_time):
         return INVALID_INPUT
