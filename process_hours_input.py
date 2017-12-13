@@ -141,35 +141,39 @@ def convert_to_dhms(raw_secs):
     raw_hrs = raw_mins // 60
     hrs = raw_hrs % 24
     days = raw_hrs // 24
-    return mult_by * days, hrs, mins, secs
+    return tuple(map(lambda u: u * mult_by, [days, hrs, mins, secs]))
 
 
-def convert_to_secs(days, hours, mins, secs):
-    if days < 0:
-        mult_by = -1
-        days = abs(days)
+def convert_to_secs(*units):
+    for unit in units:
+        if unit < 0:
+            mult_by = -1
+            units = map(abs, units)
+            break
     else:
         mult_by = 1
+
+    days, hours, mins, secs = units
 
     print('convert_to_secs', mult_by * (days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs))
     return mult_by * (days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs)
 
 
-def add(secs, raw_timelet, negative):
-    timelet = process_timelet(raw_timelet)
-    if not timelet:
-        return
-    if negative:
-        return secs - convert_to_secs(*timelet)
-    return secs + convert_to_secs(*timelet)
-
-
-def multiply(secs, integer):
-    try:
-        integer = int(integer)
-    except ValueError:
-        return
-    return secs * integer
+# def add(secs, raw_timelet, negative):
+#     timelet = process_timelet(raw_timelet)
+#     if not timelet:
+#         return
+#     if negative:
+#         return secs - convert_to_secs(*timelet)
+#     return secs + convert_to_secs(*timelet)
+#
+#
+# def multiply(secs, integer):
+#     try:
+#         integer = int(integer)
+#     except ValueError:
+#         return
+#     return secs * integer
 
 
 # def convert_timelet(timelet):
