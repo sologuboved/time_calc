@@ -69,17 +69,17 @@ def process_time_series(user_input):
 def process_timelet(raw_timelet):
     if raw_timelet == 'now':
         now = datetime.datetime.now()
-        return 0, now.hour, now.minute, now.second
+        return now.hour, now.minute, now.second
 
     try:
         raw_timelet = dict(enumerate(reversed(list(map(int, raw_timelet.split(DOT))))))
     except ValueError:
         return
 
-    if len(raw_timelet) > 4:
+    if len(raw_timelet) > 3:
         return
 
-    return raw_timelet.get(3, 0), raw_timelet.get(2, 0), raw_timelet.get(1, 0), raw_timelet.get(0, 0)
+    return raw_timelet.get(2, 0), raw_timelet.get(1, 0), raw_timelet.get(0, 0)
 
 
 def process_timelapse(user_input):
@@ -122,7 +122,7 @@ def process_datetime(raw_datetime):
 
     timelet = process_timelet(raw_time)
     if timelet:
-        days, hrs, mins, secs = timelet
+        hrs, mins, secs = timelet
         if hrs > 23 or mins > 59 or secs > 59:
             timelet = None
 
@@ -138,10 +138,8 @@ def convert_to_dhms(raw_secs):
     secs = raw_secs % 60
     raw_mins = raw_secs // 60
     mins = raw_mins % 60
-    raw_hrs = raw_mins // 60
-    hrs = raw_hrs % 24
-    days = raw_hrs // 24
-    return tuple(map(lambda u: u * mult_by, [days, hrs, mins, secs]))
+    hrs = raw_mins // 60
+    return tuple(map(lambda u: u * mult_by, [hrs, mins, secs]))
 
 
 def convert_to_secs(*units):
@@ -153,10 +151,10 @@ def convert_to_secs(*units):
     else:
         mult_by = 1
 
-    days, hours, mins, secs = units
+    hours, mins, secs = units
 
-    print('convert_to_secs', mult_by * (days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs))
-    return mult_by * (days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs)
+    # print('convert_to_secs', mult_by * (days * 24 * 60 * 60 + hours * 60 * 60 + mins * 60 + secs))
+    return mult_by * (hours * 60 * 60 + mins * 60 + secs)
 
 
 # def add(secs, raw_timelet, negative):

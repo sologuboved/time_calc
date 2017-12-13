@@ -33,10 +33,18 @@ def time_after(user_input):
     if not (date and initial_timelet and lapse):
         return INVALID_INPUT
 
-    days, hrs, mins, secs = convert_to_dhms(convert_to_secs(*initial_timelet) + convert_to_secs(*lapse))
-    date += datetime.timedelta(days)
+    hrs, mins, secs = initial_timelet
+    date = date.replace(hour=hrs, minute=mins, second=secs)
+    hrs, mins, secs = lapse
+    delta = datetime.timedelta(hours=hrs, minutes=mins, seconds=secs)
+    date += delta
 
-    return process_date_ouput(date, delta=False) + " " + process_time_output((hrs, mins, secs), with_days=False)
+    return date
+
+    # days, hrs, mins, secs = convert_to_dhms(convert_to_secs(*initial_timelet) + convert_to_secs(*lapse))
+    # date += datetime.timedelta(days)
+    #
+    # return process_date_ouput(date, delta=False) + " " + process_time_output((hrs, mins, secs), with_days=False)
 
 
 def time_before(user_input):
@@ -45,14 +53,35 @@ def time_before(user_input):
     if not (date and initial_timelet and lapse):
         return INVALID_INPUT
 
-    days, hrs, mins, secs = convert_to_dhms(convert_to_secs(*initial_timelet) - convert_to_secs(*lapse))
-    print(initial_timelet)
-    print(lapse)
-    print(hrs, mins, secs)
-    date -= datetime.timedelta(abs(days))
-    # date += datetime.timedelta(days)
+    hrs, mins, secs = initial_timelet
+    date = date.replace(hour=hrs, minute=mins, second=secs)
+    hrs, mins, secs = lapse
+    delta = datetime.timedelta(hours=hrs, minutes=mins, seconds=secs)
+    date -= delta
 
-    return process_date_ouput(date, delta=False) + " " + process_time_output((hrs, mins, secs), with_days=False)
+    return date
+
+
+# def time_before(user_input):
+#     # raw date raw timelet / raw timelet
+#     date, initial_timelet, lapse = process_timelapse(user_input)
+#     if not (date and initial_timelet and lapse):
+#         return INVALID_INPUT
+#
+#     # days, hrs, mins, secs = initial
+#     res_in_seconds = convert_to_secs(*(initial_timelet[1:])) - convert_to_secs(*lapse)
+#     dhms = convert_to_dhms(res_in_seconds)
+#     days, hrs, mins, secs = dhms
+#     # print(initial_timelet)
+#     # print(lapse)
+#     # print(hrs, mins, secs)
+#     for unit in dhms:
+#         if unit < 0:
+#             date -= datetime.timedelta(abs(days) + 1)
+#             days, hrs, mins, secs = convert_to_dhms(convert_to_secs(0, 24, 0, 0) + res_in_seconds)
+#             break
+#
+#     return process_date_ouput(date, delta=False) + " " + process_time_output((hrs, mins, secs), with_days=False)
 
 
 def time_between(user_input):
