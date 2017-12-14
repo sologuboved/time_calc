@@ -68,3 +68,8 @@ def time_between(user_input):
     end_date = end_date.replace(hour=hrs, minute=mins, second=secs)
 
     return str(abs(end_date - start_date))
+
+
+def get_now():
+    now = datetime.datetime.now(tz=MOSCOW)
+    return process_time_output((now.hour, now.minute, now.second), with_date=False)

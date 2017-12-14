@@ -41,12 +41,13 @@ def daft(bot, update):
     # /daft today / 10
     try:
         query = update['message']['text']
+        print('query:', query)
         query = query.split()
         query = ' '.join(query[1:])
-        print(query)
     except IndexError:
         query = ''
     reply = date_after(query)
+    print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
 
@@ -55,12 +56,13 @@ def dbef(bot, update):
     # /dbef 11 / 10
     try:
         query = update['message']['text']
+        print('query:', query)
         query = query.split()
         query = ' '.join(query[1:])
-        print(query)
     except IndexError:
         query = ''
     reply = date_before(query)
+    print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
 
@@ -69,12 +71,13 @@ def dbetw(bot, update):
     # /dbetw 13.12 / 1.3.2018
     try:
         query = update['message']['text']
+        print('query:', query)
         query = query.split()
         query = ' '.join(query[1:])
-        print(query)
     except IndexError:
         query = ''
     reply = days_between(query)
+    print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
     
@@ -83,12 +86,13 @@ def taft(bot, update):
     # /taft 13.12.2017 23:56:52 / 3:8
     try:
         query = update['message']['text']
+        print('query:', query)
         query = query.split()
         query = ' '.join(query[1:])
-        print(query)
     except IndexError:
         query = ''
     reply = time_after(query)
+    print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
     
@@ -97,12 +101,13 @@ def tbef(bot, update):
     # /tbef 14.12.2017 0:10:0 / 48:11:0
     try:
         query = update['message']['text']
+        print('query:', query)
         query = query.split()
         query = ' '.join(query[1:])
-        print(query)
     except IndexError:
         query = ''
     reply = time_before(query)
+    print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
     
@@ -111,13 +116,13 @@ def tbetw(bot, update):
     # /tbetw 13.12.2017 12:28:0 / 12.12.2017 0:59:0
     try:
         query = update['message']['text']
+        print('query:', query)
         query = query.split()
         query = ' '.join(query[1:])
-        print(query)
     except IndexError:
         query = ''
     reply = time_between(query)
-    print(reply)
+    print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
     
@@ -126,13 +131,27 @@ def tseq(bot, update):
     # /tseq 1:56:17 - 8:0 - 1:0:0 + 0 + 20:7 - 1:0
     try:
         query = update['message']['text']
+        print('query:', query)
         query = query.split()
         query = ' '.join(query[1:])
-        print(query)
     except IndexError:
         query = ''
     reply = calculate_time_sequence(query)
-    print(reply)
+    print('reply:', reply, '\n')
+    chat_id = update.message.chat_id
+    bot.send_message(chat_id=chat_id, text=reply)
+
+
+def today(bot, update):
+    # /today
+    reply = get_today()
+    chat_id = update.message.chat_id
+    bot.send_message(chat_id=chat_id, text=reply)
+
+
+def now(bot, update):
+    # /now
+    reply = get_now()
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
 
@@ -150,6 +169,8 @@ if __name__ == '__main__':
     tbef_handler = CommandHandler('tbef', tbef)
     tbetw_handler = CommandHandler('tbetw', tbetw)
     tseq_handler = CommandHandler('tseq', tseq)
+    now_handler = CommandHandler('now', tseq)
+    today_handler = CommandHandler('today', tseq)
 
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
@@ -160,5 +181,7 @@ if __name__ == '__main__':
     dispatcher.add_handler(tbef_handler)
     dispatcher.add_handler(tbetw_handler)
     dispatcher.add_handler(tseq_handler)
+    dispatcher.add_handler(now_handler)
+    dispatcher.add_handler(today_handler)
 
     updater.start_polling()

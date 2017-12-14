@@ -34,3 +34,7 @@ def days_between(user_input):
         return process_date_ouput(abs(end - start), True)
     except OverflowError:
         return INVALID_INPUT
+
+
+def get_today():
+    return process_date_ouput(datetime.datetime.now(tz=MOSCOW), delta=False)
