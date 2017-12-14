@@ -29,6 +29,7 @@ def days_between(user_input):
     start, end = process_datedate(user_input)
     if not (start and end):
         return INVALID_INPUT
+    start, end = map(lambda u: u.replace(hour=0, minute=0, second=0, microsecond=0), (start, end))
     try:
         return process_date_ouput(abs(end - start), True)
     except OverflowError:
