@@ -26,10 +26,10 @@ def date_before(user_input):
 
 def days_between(user_input):
     # raw date DELIMITER raw date
-    start, end = process_datedate(user_input)
-    if not (start and end):
+    try:
+        start, end = map(lambda u: u.replace(hour=0, minute=0, second=0, microsecond=0), process_datedate(user_input))
+    except AttributeError:
         return INVALID_INPUT
-    start, end = map(lambda u: u.replace(hour=0, minute=0, second=0, microsecond=0), (start, end))
     try:
         return process_date_ouput(abs(end - start), True)
     except OverflowError:
