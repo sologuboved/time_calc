@@ -169,8 +169,8 @@ if __name__ == '__main__':
     tbef_handler = CommandHandler('tbef', tbef)
     tbetw_handler = CommandHandler('tbetw', tbetw)
     tseq_handler = CommandHandler('tseq', tseq)
-    now_handler = CommandHandler('now', tseq)
-    today_handler = CommandHandler('today', tseq)
+    now_handler = CommandHandler('now', now)
+    today_handler = CommandHandler('today', today)
 
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)

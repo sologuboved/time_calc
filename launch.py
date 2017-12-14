@@ -1,9 +1,6 @@
 from calculate_days import *
 from calculate_hours import *
 
-# TODO add /now
-# TODO return input in addition to output
-# TODO print out input & output
 
 """
 raw date:
@@ -50,7 +47,7 @@ raw timelet:
 # print(time_between("now / 15.12.2017 0:0:0"))
 # print(time_between("13.12.2017 12:28:0 / 12.12.2017 0:59:0"))  # 1 day, 11:29:00
 
-print(get_today())
-print(get_now())
+# print(get_today())
+# print(get_now())
 
 
