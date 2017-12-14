@@ -1,5 +1,4 @@
 import datetime
-import pytz
 from global_vars import *
 from process_days_input import process_date
 
@@ -42,7 +41,7 @@ def process_timelet(raw_timelet):
         return now.hour, now.minute, now.second
 
     try:
-        raw_timelet = dict(enumerate(reversed(list(map(int, raw_timelet.split(DOT))))))
+        raw_timelet = dict(enumerate(reversed(list(map(int, raw_timelet.split(COLON))))))
     except ValueError:
         return
 

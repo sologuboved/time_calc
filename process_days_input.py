@@ -1,5 +1,4 @@
 import datetime
-import pytz
 from global_vars import *
 
 

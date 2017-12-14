@@ -29,8 +29,8 @@ def description(bot, update):
             "'10' [10 days]\n\n" \
             "raw timelet:\n\n" \
             "'now'\n" \
-            "'21.11.12' [21:11:12]\n" \
-            "'11.12' [00:11:12]\n" \
+            "'21:11:12'\n" \
+            "'11:12' [00:11:12]\n" \
             "'12' [00:00:12]\n" % (DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER)
 
     chat_id = update.message.chat_id
@@ -66,7 +66,7 @@ def dbef(bot, update):
 
 
 def dbetw(bot, update):
-    # /dbetw 13.12 / 1. 3. 2018
+    # /dbetw 13.12 / 1.3.2018
     try:
         query = update['message']['text']
         query = query.split()
@@ -80,7 +80,7 @@ def dbetw(bot, update):
     
     
 def taft(bot, update):
-    # /taft 13.12.2017 23.56.52 / 3.8
+    # /taft 13.12.2017 23:56:52 / 3:8
     try:
         query = update['message']['text']
         query = query.split()
@@ -94,7 +94,7 @@ def taft(bot, update):
     
     
 def tbef(bot, update):
-    # /tbef 14.12.2017 0.10.0 / 48.11.0
+    # /tbef 14.12.2017 0:10:0 / 48:11:0
     try:
         query = update['message']['text']
         query = query.split()
@@ -108,7 +108,7 @@ def tbef(bot, update):
     
     
 def tbetw(bot, update):
-    # /tbetw 13.12.2017 12.28.0 / 12.12.2017 0.59.0
+    # /tbetw 13.12.2017 12:28:0 / 12.12.2017 0:59:0
     try:
         query = update['message']['text']
         query = query.split()
@@ -123,7 +123,7 @@ def tbetw(bot, update):
     
     
 def tseq(bot, update):
-    # /tseq 1.56.17 - 8.0 - 1.0.0 + 0 + 20.7 - 1.0
+    # /tseq 1:56:17 - 8:0 - 1:0:0 + 0 + 20:7 - 1:0
     try:
         query = update['message']['text']
         query = query.split()
