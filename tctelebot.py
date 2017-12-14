@@ -13,21 +13,21 @@ def start(bot, update):
 
 def description(bot, update):
     text = "Commands:\n\n" \
-            "/daft - raw date %s raw lapse\n" \
-            "/dbef - raw date %s raw lapse\n" \
-            "/dbetw - raw date %s raw date\n\n" \
-            "/taft - raw date raw timelet %s raw timelet\n" \
-            "/tbef - raw date raw timelet %s raw timelet\n" \
-            "/tbetw - raw date raw timelet %s raw date raw timelet\n" \
-            "/tseq - raw timelet {+, -, *} raw timelet {+, -, *} ... \n\n\n" \
-            "raw date:\n\n" \
+            "/daft - date %s lapse\n" \
+            "/dbef - date %s lapse\n" \
+            "/dbetw - date %s date\n\n" \
+            "/taft - date timelet %s timelet\n" \
+            "/tbef - date timelet %s timelet\n" \
+            "/tbetw - date timelet %s date timelet\n" \
+            "/tseq - timelet {+, -, *} timelet {+, -, *} ... \n\n\n" \
+            "date:\n\n" \
             "'today'\n" \
             "'11.12.2017' [11 December 2017]\n" \
             "'11.12' [11 December same year as today]\n" \
             "'11' [11 same month and year as today]\n\n" \
-            "raw lapse:\n\n" \
+            "lapse:\n\n" \
             "'10' [10 days]\n\n" \
-            "raw timelet:\n\n" \
+            "timelet:\n\n" \
             "'now'\n" \
             "'21:11:12'\n" \
             "'11:12' [00:11:12]\n" \
