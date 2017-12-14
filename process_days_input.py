@@ -1,4 +1,5 @@
 import datetime
+import pytz
 from global_vars import *
 
 
@@ -22,7 +23,7 @@ def process_datedate(user_input):
 
 def process_date(raw_date):
     if raw_date == 'today':
-        return datetime.datetime.now()
+        return datetime.datetime.now(tz=MOSCOW)
 
     try:
         date = list(map(int, map(lambda i: i.strip(), raw_date.split(DOT))))
@@ -37,7 +38,7 @@ def process_date(raw_date):
 
     if length == 3:
         try:
-            return datetime.datetime(*date)
+            return datetime.datetime(*date, tzinfo=MOSCOW)
         except (TypeError, ValueError):
             return
 
@@ -46,12 +47,12 @@ def process_date(raw_date):
     if length == 1:
         this_month = datetime.datetime.now().month
         try:
-            return datetime.datetime(this_year, this_month, *date)
+            return datetime.datetime(this_year, this_month, *date, tzinfo=MOSCOW)
         except (TypeError, ValueError):
             return
 
     try:
-        return datetime.datetime(this_year, *date)
+        return datetime.datetime(this_year, *date, tzinfo=MOSCOW)
     except (TypeError, ValueError):
         return
 

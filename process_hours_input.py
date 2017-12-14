@@ -1,4 +1,5 @@
 import datetime
+import pytz
 from global_vars import *
 from process_days_input import process_date
 
@@ -37,7 +38,7 @@ def process_time_sequence(user_input):
 
 def process_timelet(raw_timelet):
     if raw_timelet == 'now':
-        now = datetime.datetime.now()
+        now = datetime.datetime.now(tz=MOSCOW)
         return now.hour, now.minute, now.second
 
     try:

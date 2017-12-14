@@ -27,10 +27,12 @@ raw timelet:
 
 # print(date_after("today / 1"))
 # print(date_after("today / 10"))
+#
 # print(date_before("11 / 10"))
+#
 # print(days_between("16 / 13"))
 # print(days_between("14 / 15"))
-print(days_between("today / 20"))
+# print(days_between("today / 20"))
 
 # print(calculate_time_sequence("17.12 + 1.10 - 5"))  # 0:18.17
 # print(calculate_time_sequence("23.55.55 + 6.6 + 1"))  # 1 day, 0:02:02
@@ -43,8 +45,10 @@ print(days_between("today / 20"))
 # print(time_after("31.12.2017 0.0.1 / 23.59.59"))  # 01 January 2018, Monday 00:00:00
 # print(time_after("13.12.2017 0.0.0 / 73.1.1"))  # 16 December 2017, Saturday 01:01:01
 # print(time_after("14.12.2017 23.59.0 / 120"))  # 15 December 2017, Friday 00:01:00
+# print(time_after("now / 0"))
 
 # print(time_before("14.12.2017 0.10.0 / 48.11.0"))  # 11 December 2017, Monday 23:59:00
+# print(time_before("now / 48.11.0"))  # 11 December 2017, Monday 23:59:00
 
 # print(time_between("now / 15.12.2017 0.0.0"))
 # print(time_between("13.12.2017 12.28.0 / 12.12.2017 0.59.0"))  # 1 day, 11:29:00
