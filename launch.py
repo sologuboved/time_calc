@@ -50,4 +50,6 @@ raw timelet:
 # print(get_today())
 # print(get_now())
 
+# print(get_day_of_week("1.01.2018"))
+
 

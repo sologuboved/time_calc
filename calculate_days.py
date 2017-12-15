@@ -36,5 +36,13 @@ def days_between(user_input):
         return INVALID_INPUT
 
 
+def get_day_of_week(user_input):
+    date = process_date(user_input)
+    try:
+        return date.strftime('%A')
+    except AttributeError:
+        return INVALID_INPUT
+
+
 def get_today():
     return process_date_ouput(datetime.datetime.now(tz=MOSCOW), delta=False)

@@ -3,6 +3,17 @@ from tkn import TOKEN
 from calculate_days import *
 from calculate_hours import *
 
+# daft - 13.12.2017 / 10
+# dbef - 13.12.2017 / 10
+# dbetw - 13.12.2017 / 1.03.2018
+# taft - 13.12.2017 18:48 / 2:19:0
+# tbef - 13.12.2017 18:48 / 2:19:0
+# tbetw - 13.12.2017 18:48 / 1.03.2018 19:51
+# tseq - 3:50 * 2 + 1:30:0 - 1
+# dow - 13.12.2017
+# now -
+# today -
+
 
 def start(bot, update):
     text = "Date and Time Calculator\n" \
@@ -12,7 +23,7 @@ def start(bot, update):
 
 
 def description(bot, update):
-    text = "Commands:\n\n" \
+    text = "*Commands:* \n\n" \
             "/daft - date %s lapse\n" \
             "/dbef - date %s lapse\n" \
             "/dbetw - date %s date\n\n" \
@@ -142,6 +153,21 @@ def tseq(bot, update):
     bot.send_message(chat_id=chat_id, text=reply)
 
 
+def dow(bot, update):
+    # /dow "15.12.2017"
+    try:
+        query = update['message']['text']
+        print('query:', query)
+        query = query.split()
+        query = ' '.join(query[1:])
+    except IndexError:
+        query = ''
+    reply = get_day_of_week(query)
+    print('reply:', reply, '\n')
+    chat_id = update.message.chat_id
+    bot.send_message(chat_id=chat_id, text=reply)
+
+
 def today(bot, update):
     # /today
     reply = get_today()
@@ -169,6 +195,7 @@ if __name__ == '__main__':
     tbef_handler = CommandHandler('tbef', tbef)
     tbetw_handler = CommandHandler('tbetw', tbetw)
     tseq_handler = CommandHandler('tseq', tseq)
+    dow_handler = CommandHandler('dow', dow)
     now_handler = CommandHandler('now', now)
     today_handler = CommandHandler('today', today)
 
@@ -181,6 +208,7 @@ if __name__ == '__main__':
     dispatcher.add_handler(tbef_handler)
     dispatcher.add_handler(tbetw_handler)
     dispatcher.add_handler(tseq_handler)
+    dispatcher.add_handler(dow_handler)
     dispatcher.add_handler(now_handler)
     dispatcher.add_handler(today_handler)
 
