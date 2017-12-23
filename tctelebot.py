@@ -50,10 +50,10 @@ def description(bot, update):
 
 def daft(bot, update):
     # /daft today / 10
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
     try:
-        query = update['message']['text']
-        print('query:', query)
-        query = query.split()
         query = ' '.join(query[1:])
     except IndexError:
         query = ''
@@ -65,10 +65,10 @@ def daft(bot, update):
 
 def dbef(bot, update):
     # /dbef 11 / 10
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
     try:
-        query = update['message']['text']
-        print('query:', query)
-        query = query.split()
         query = ' '.join(query[1:])
     except IndexError:
         query = ''
@@ -80,10 +80,10 @@ def dbef(bot, update):
 
 def dbetw(bot, update):
     # /dbetw 13.12 / 1.3.2018
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
     try:
-        query = update['message']['text']
-        print('query:', query)
-        query = query.split()
         query = ' '.join(query[1:])
     except IndexError:
         query = ''
@@ -95,10 +95,10 @@ def dbetw(bot, update):
     
 def taft(bot, update):
     # /taft 13.12.2017 23:56:52 / 3:8
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
     try:
-        query = update['message']['text']
-        print('query:', query)
-        query = query.split()
         query = ' '.join(query[1:])
     except IndexError:
         query = ''
@@ -110,10 +110,10 @@ def taft(bot, update):
     
 def tbef(bot, update):
     # /tbef 14.12.2017 0:10:0 / 48:11:0
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
     try:
-        query = update['message']['text']
-        print('query:', query)
-        query = query.split()
         query = ' '.join(query[1:])
     except IndexError:
         query = ''
@@ -125,10 +125,10 @@ def tbef(bot, update):
     
 def tbetw(bot, update):
     # /tbetw 13.12.2017 12:28:0 / 12.12.2017 0:59:0
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
     try:
-        query = update['message']['text']
-        print('query:', query)
-        query = query.split()
         query = ' '.join(query[1:])
     except IndexError:
         query = ''
@@ -140,10 +140,10 @@ def tbetw(bot, update):
     
 def tseq(bot, update):
     # /tseq 1:56:17 - 8:0 - 1:0:0 + 0 + 20:7 - 1:0
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
     try:
-        query = update['message']['text']
-        print('query:', query)
-        query = query.split()
         query = ' '.join(query[1:])
     except IndexError:
         query = ''
@@ -155,10 +155,10 @@ def tseq(bot, update):
 
 def dow(bot, update):
     # /dow "15.12.2017"
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
     try:
-        query = update['message']['text']
-        print('query:', query)
-        query = query.split()
         query = ' '.join(query[1:])
     except IndexError:
         query = ''
