@@ -3,6 +3,7 @@ from tkn import TOKEN
 from calculate_days import *
 from calculate_hours import *
 
+
 # daft - 13.12.2017 / 10
 # dbef - 13.12.2017 / 10
 # dbetw - 13.12.2017 / 1.03.2018
@@ -23,26 +24,27 @@ def start(bot, update):
 
 
 def description(bot, update):
-    text = "*Commands:* \n\n" \
-            "/daft - date %s lapse\n" \
-            "/dbef - date %s lapse\n" \
-            "/dbetw - date %s date\n\n" \
-            "/taft - date timelet %s timelet\n" \
-            "/tbef - date timelet %s timelet\n" \
-            "/tbetw - date timelet %s date timelet\n" \
-            "/tseq - timelet {+, -, *} timelet {+, -, *} ... \n\n\n" \
-            "date:\n\n" \
-            "'today'\n" \
-            "'11.12.2017' [11 December 2017]\n" \
-            "'11.12' [11 December same year as today]\n" \
-            "'11' [11 same month and year as today]\n\n" \
-            "lapse:\n\n" \
-            "'10' [10 days]\n\n" \
-            "timelet:\n\n" \
-            "'now'\n" \
-            "'21:11:12'\n" \
-            "'11:12' [00:11:12]\n" \
-            "'12' [00:00:12]\n" % (DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER)
+    text = "Commands: \n\n" \
+           "/daft - date %s lapse\n" \
+           "/dbef - date %s lapse\n" \
+           "/dbetw - date %s date\n" \
+           "/dow - date\n\n" \
+           "/taft - date timelet %s timelet\n" \
+           "/tbef - date timelet %s timelet\n" \
+           "/tbetw - date timelet %s date timelet\n" \
+           "/tseq - timelet {+, -, *} timelet {+, -, *} ... \n\n\n" \
+           "date:\n\n" \
+           "'today'\n" \
+           "'11.12.2017' [11 December 2017]\n" \
+           "'11.12' [11 December same year as today]\n" \
+           "'11' [11 same month and year as today]\n\n" \
+           "lapse:\n\n" \
+           "'10' [10 days]\n\n" \
+           "timelet:\n\n" \
+           "'now'\n" \
+           "'21:11:12'\n" \
+           "'11:12' [00:11:12]\n" \
+           "'12' [00:00:12]\n" % (DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER)
 
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=text)
@@ -91,8 +93,8 @@ def dbetw(bot, update):
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
-    
-    
+
+
 def taft(bot, update):
     # /taft 13.12.2017 23:56:52 / 3:8
     query = update['message']['text']
@@ -106,8 +108,8 @@ def taft(bot, update):
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
-    
-    
+
+
 def tbef(bot, update):
     # /tbef 14.12.2017 0:10:0 / 48:11:0
     query = update['message']['text']
@@ -121,8 +123,8 @@ def tbef(bot, update):
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
-    
-    
+
+
 def tbetw(bot, update):
     # /tbetw 13.12.2017 12:28:0 / 12.12.2017 0:59:0
     query = update['message']['text']
@@ -136,8 +138,8 @@ def tbetw(bot, update):
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
-    
-    
+
+
 def tseq(bot, update):
     # /tseq 1:56:17 - 8:0 - 1:0:0 + 0 + 20:7 - 1:0
     query = update['message']['text']
