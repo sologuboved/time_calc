@@ -1,5 +1,6 @@
 from calculate_days import *
 from calculate_hours import *
+from process_days_input import process_datedateday
 
 
 """
@@ -52,4 +53,8 @@ raw timelet:
 
 # print(get_day_of_week("1.01.2018"))
 
+
+# print(process_datedateday("42.3.2018 / We"))
+
+print(how_many("2.1.2018 / 5.3.2018 / Tue"))
 

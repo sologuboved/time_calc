@@ -61,3 +61,25 @@ def process_daylapse(raw_lapse):
         return datetime.timedelta(int(raw_lapse))
     except ValueError:
         return
+
+
+def process_datedateday(user_input):
+    wrong = (None, None, None)
+    splitted = list(map(lambda d: d.strip(), user_input.split(DELIMITER)))
+    if len(splitted) == 3:
+        start, end, week_day = splitted
+        start, end = map(lambda d: process_date(d), (start, end))
+        week_day = process_day(week_day)
+    elif len(splitted) == 2:
+        start = process_date('today')
+        end, week_day = splitted
+        end = process_date(end)
+        week_day = process_day(week_day)
+    else:
+        return wrong
+    return start, end, week_day
+
+
+def process_day(day):
+    if day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']:
+        return day
