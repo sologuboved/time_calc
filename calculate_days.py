@@ -1,5 +1,6 @@
 from process_days_input import *
 from process_output import *
+from calendar import monthrange
 
 
 def date_after(user_input):
@@ -37,6 +38,7 @@ def days_between(user_input):
 
 
 def get_day_of_week(user_input):
+    # raw date
     date = process_date(user_input)
     try:
         return date.strftime('%A')
@@ -46,3 +48,26 @@ def get_day_of_week(user_input):
 
 def get_today():
     return process_date_ouput(datetime.datetime.now(tz=MOSCOW), delta=False)
+
+
+def how_many(user_input):
+    # raw date DELIMITER raw date DELIMITER day of week
+    # or
+    # raw date DELIMITER day of week
+    start, end, week_day = process_datedateday(user_input)
+    if not (start and end and week_day) or start >= end:
+        return INVALID_INPUT
+    lapse = (end - start).days
+    res = lapse // 7
+    remainder = lapse % 7
+    remaining_date = end - datetime.timedelta(remainder)
+    while remaining_date <= end:
+        if remaining_date.strftime('%a') == week_day:
+            res += 1
+            break
+        remaining_date += datetime.timedelta(1)
+    return res
+
+
+
+
