@@ -4,18 +4,6 @@ from calculate_days import *
 from calculate_hours import *
 
 
-# daft - 13.12.2017 / 10
-# dbef - 13.12.2017 / 10
-# dbetw - 13.12.2017 / 1.03.2018
-# taft - 13.12.2017 18:48 / 2:19:0
-# tbef - 13.12.2017 18:48 / 2:19:0
-# tbetw - 13.12.2017 18:48 / 1.03.2018 19:51
-# tseq - 3:50 * 2 + 1:30:0 - 1
-# dow - 13.12.2017
-# now -
-# today -
-
-
 def start(bot, update):
     text = "Date and Time Calculator\n" \
            "Adds/subtracts/multiplies hours, calculates dates"
@@ -28,7 +16,8 @@ def description(bot, update):
            "/daft - date %s lapse\n" \
            "/dbef - date %s lapse\n" \
            "/dbetw - date %s date\n" \
-           "/dow - date\n\n" \
+           "/dow - date\n" \
+           "/howm - date %s date %s day of week or date %s day of week\n\n" \
            "/taft - date timelet %s timelet\n" \
            "/tbef - date timelet %s timelet\n" \
            "/tbetw - date timelet %s date timelet\n" \
@@ -40,11 +29,13 @@ def description(bot, update):
            "'11' [11 same month and year as today]\n\n" \
            "lapse:\n\n" \
            "'10' [10 days]\n\n" \
+           "day of week:\n\n{Mon, Tue, Wed, Thu, Fri, Sat, Sun}\n\n" \
            "timelet:\n\n" \
            "'now'\n" \
            "'21:11:12'\n" \
            "'11:12' [00:11:12]\n" \
-           "'12' [00:00:12]\n" % (DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER)
+           "'12' [00:00:12]\n" % (
+               DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER, DELIMITER)
 
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=text)
@@ -90,6 +81,36 @@ def dbetw(bot, update):
     except IndexError:
         query = ''
     reply = days_between(query)
+    print('reply:', reply, '\n')
+    chat_id = update.message.chat_id
+    bot.send_message(chat_id=chat_id, text=reply)
+
+
+def dow(bot, update):
+    # /dow "15.12.2017"
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
+    try:
+        query = ' '.join(query[1:])
+    except IndexError:
+        query = ''
+    reply = get_day_of_week(query)
+    print('reply:', reply, '\n')
+    chat_id = update.message.chat_id
+    bot.send_message(chat_id=chat_id, text=reply)
+
+
+def howm(bot, update):
+    # /howm "2.1.2018 / 1.3.2018 / Thu"
+    query = update['message']['text']
+    print('query:', query)
+    query = query.split()
+    try:
+        query = ' '.join(query[1:])
+    except IndexError:
+        query = ''
+    reply = how_many(query)
     print('reply:', reply, '\n')
     chat_id = update.message.chat_id
     bot.send_message(chat_id=chat_id, text=reply)
@@ -155,21 +176,6 @@ def tseq(bot, update):
     bot.send_message(chat_id=chat_id, text=reply)
 
 
-def dow(bot, update):
-    # /dow "15.12.2017"
-    query = update['message']['text']
-    print('query:', query)
-    query = query.split()
-    try:
-        query = ' '.join(query[1:])
-    except IndexError:
-        query = ''
-    reply = get_day_of_week(query)
-    print('reply:', reply, '\n')
-    chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=reply)
-
-
 def today(bot, update):
     # /today
     reply = get_today()
@@ -198,6 +204,7 @@ if __name__ == '__main__':
     tbetw_handler = CommandHandler('tbetw', tbetw)
     tseq_handler = CommandHandler('tseq', tseq)
     dow_handler = CommandHandler('dow', dow)
+    howm_handler = CommandHandler('howm', howm)
     now_handler = CommandHandler('now', now)
     today_handler = CommandHandler('today', today)
 
@@ -211,6 +218,7 @@ if __name__ == '__main__':
     dispatcher.add_handler(tbetw_handler)
     dispatcher.add_handler(tseq_handler)
     dispatcher.add_handler(dow_handler)
+    dispatcher.add_handler(howm_handler)
     dispatcher.add_handler(now_handler)
     dispatcher.add_handler(today_handler)
 
