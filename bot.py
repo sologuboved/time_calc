@@ -2,6 +2,7 @@ from telegram.ext import Updater, CommandHandler
 from tkn import TOKEN
 from calculate_days import *
 from calculate_hours import *
+from pid_operations import write_pid
 
 
 def start(bot, update):
@@ -190,7 +191,7 @@ def now(bot, update):
     bot.send_message(chat_id=chat_id, text=reply)
 
 
-if __name__ == '__main__':
+def main():
     updater = Updater(token=TOKEN)
     dispatcher = updater.dispatcher
 
@@ -223,3 +224,8 @@ if __name__ == '__main__':
     dispatcher.add_handler(today_handler)
 
     updater.start_polling()
+
+
+if __name__ == '__main__':
+    write_pid()
+    main()
