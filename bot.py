@@ -1,5 +1,5 @@
 from telegram.ext import Updater, CommandHandler
-from tkn import TOKEN
+from userinfo import TOKEN
 from calculate_days import *
 from calculate_hours import *
 from pid_operations import write_pid
