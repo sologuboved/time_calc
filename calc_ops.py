@@ -1,6 +1,27 @@
 import datetime
 
-from input_processor import process_date
+from input_processor import process_date, process_timelet
+
+
+def process_timelets(query):
+    res = datetime.timedelta()
+    previous_sign = '+'
+    for item in map(str.strip, query.split()):
+        if item in ('+', '-', '*', '/'):
+            previous_sign = item
+        else:
+            item = process_timelet(item)
+            if previous_sign == '+':
+                res += item
+            elif previous_sign == '-':
+                res -= item
+            elif previous_sign == '*':
+                res *= item
+            elif previous_sign == '/':
+                res /= item
+            else:
+                raise RuntimeError(f"Wrong sign: {item}; should be '+', or '-', or '*', or '/'")
+    return res
 
 
 def process_datelapse(query):
@@ -22,4 +43,4 @@ def process_datedelta(query):
 
 
 if __name__ == '__main__':
-    process_datelapse('20 today')
+    print(process_timelets('1:30 + 10 * 2'))
