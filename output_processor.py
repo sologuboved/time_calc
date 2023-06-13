@@ -1,5 +1,5 @@
 def output_timelet(timelet):
-    return f"{timelet:%H:%M:%S}"
+    return str(timelet)
 
 
 def output_date(date):
