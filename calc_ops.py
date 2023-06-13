@@ -3,23 +3,23 @@ import datetime
 from input_processor import process_date
 
 
-def process_dateday(query):
-    date, sign, delta = query.split()
+def process_datelapse(query):
+    date, sign, lapse = query.split()
     date = process_date(date)
-    delta = datetime.timedelta(days=int(delta))
+    lapse = datetime.timedelta(days=int(lapse))
     if '+' in sign:
-        res = date + delta
+        res = date + lapse
     elif '-' in sign:
-        res = date - delta
+        res = date - lapse
     else:
         raise RuntimeError(f"Wrong sign: {sign}; should be '+' or '-'")
     return res
 
 
-def process_datedate(query):
+def process_datedelta(query):
     date0, date1 = map(process_date, query.split())
     return abs(date1 - date0)
 
 
 if __name__ == '__main__':
-    process_dateday('20 today')
+    process_datelapse('20 today')
