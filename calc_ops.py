@@ -10,14 +10,17 @@ def process_timelets(query):
         if item in ('+', '-', '*', '/'):
             previous_sign = item
         else:
-            item = process_timelet(item)
             if previous_sign == '+':
+                item = process_timelet(item)
                 res += item
             elif previous_sign == '-':
+                item = process_timelet(item)
                 res -= item
             elif previous_sign == '*':
+                item = int(item)
                 res *= item
             elif previous_sign == '/':
+                item = int(item)
                 res /= item
             else:
                 raise RuntimeError(f"Wrong sign: {item}; should be '+', or '-', or '*', or '/'")
