@@ -2,9 +2,9 @@ import logging
 
 from telegram.ext import Application, CommandHandler
 
-from calc_ops import process_datedelta
+from calc_ops import process_datedate, process_dateday
 from helpers import report_exception, write_pid
-from output_processor import process_date
+from output_processor import process_date, process_days
 from userinfo import TOKEN
 
 logging.basicConfig(
@@ -20,10 +20,17 @@ async def start(update, context):
     )
 
 
-async def datedelta(update, context):
+async def dateday(update, context):
     await context.bot.send_message(
         update.message.chat_id,
-        process_date(process_datedelta(get_query(update))),
+        process_date(process_dateday(get_query(update))),
+    )
+
+
+async def datedate(update, context):
+    await context.bot.send_message(
+        update.message.chat_id,
+        process_days(process_datedate(get_query(update))),
     )
 
 
@@ -35,7 +42,8 @@ def get_query(update):
 def main():
     application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler('start', start))
-    application.add_handler(CommandHandler('datedelta', datedelta))
+    application.add_handler(CommandHandler('dateday', dateday))
+    application.add_handler(CommandHandler('datedate', datedate))
     application.run_polling()
 
 

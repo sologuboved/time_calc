@@ -2,6 +2,7 @@ import datetime
 
 
 def process_date(date):
+    date = date.strip()
     today = datetime.datetime.combine(datetime.date.today(), datetime.datetime.min.time())
     if date == 'today':
         return today
