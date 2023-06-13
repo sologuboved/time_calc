@@ -1,9 +1,9 @@
 import datetime
 
-from input_processor import process_date, process_timelet
+from input_processor import process_date, process_timelapse
 
 
-def process_timelets(query):
+def process_timelapses(query):
     res = datetime.timedelta()
     previous_sign = '+'
     for item in map(str.strip, query.split()):
@@ -11,10 +11,10 @@ def process_timelets(query):
             previous_sign = item
         else:
             if previous_sign == '+':
-                item = process_timelet(item)
+                item = process_timelapse(item, seconds_first=True)
                 res += item
             elif previous_sign == '-':
-                item = process_timelet(item)
+                item = process_timelapse(item, seconds_first=True)
                 res -= item
             elif previous_sign == '*':
                 item = int(item)
@@ -46,4 +46,4 @@ def process_datedelta(query):
 
 
 if __name__ == '__main__':
-    print(process_timelets('1:30 + 10 * 2'))
+    print(process_timelapses('1:30 + 10 * 2'))

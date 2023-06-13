@@ -1,8 +1,13 @@
 import datetime
 
 
-def process_timelet(timelet):
-    timelet = dict(zip(('seconds', 'minutes', 'hours'), map(int, reversed(timelet.strip().split(':')))))
+def process_timelapse(timelet, seconds_first):
+    keys = ['hours', 'minutes', 'seconds']
+    timelet = timelet.strip().split(':')
+    if seconds_first:
+        keys.reverse()
+        timelet.reverse()
+    timelet = dict(zip(keys, map(int, timelet)))
     for key in ('minutes', 'hours'):
         timelet.setdefault(key, 0)
     return datetime.timedelta(**timelet)
@@ -19,5 +24,9 @@ def process_date(date):
     return datetime.datetime(**date)
 
 
+def process_datetimelet(date, timelet):
+    return process_date(date) + process_timelapse(timelet, seconds_first=False)
+
+
 if __name__ == '__main__':
-    print(process_timelet('03:2:01'))
+    print(process_datetimelet('13.06.2023', '18:15'))
