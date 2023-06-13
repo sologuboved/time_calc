@@ -1,8 +1,12 @@
-def process_date(date):
+def output_timelet(timelet):
+    return f"{timelet:%H:%M:%S}"
+
+
+def output_date(date):
     return f"{date:%d.%m.%Y}"
 
 
-def process_days(delta):
+def output_days(delta):
     days = delta.days
     if days == 1:
         postfix = ''

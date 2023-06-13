@@ -4,7 +4,7 @@ from telegram.ext import Application, CommandHandler
 
 from calc_ops import process_datedelta, process_datelapse
 from helpers import report_exception, write_pid
-from output_processor import process_date, process_days
+from output_processor import output_date, output_days
 from userinfo import TOKEN
 
 logging.basicConfig(
@@ -23,21 +23,21 @@ async def start(update, context):
 async def datelapse(update, context):
     await context.bot.send_message(
         update.message.chat_id,
-        process_date(process_datelapse(get_query(update))),
+        output_date(process_datelapse(get_query(update))),
     )
 
 
 async def datedelta(update, context):
     await context.bot.send_message(
         update.message.chat_id,
-        process_days(process_datedelta(get_query(update))),
+        output_days(process_datedelta(get_query(update))),
     )
 
 
 async def timelets(update, context):
     await context.bot.send_message(
         update.message.chat_id,
-        process_days(process_datedelta(get_query(update))),
+        output_days(process_datedelta(get_query(update))),
     )
 
 
