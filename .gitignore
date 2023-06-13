@@ -1,2 +1,5 @@
 .idea/
+.DS_Store
+__pycache__/
 userinfo.py
+venv_time_calc/
