@@ -8,7 +8,7 @@ def process_timelapse(timelet, seconds_first):
         keys.reverse()
         timelet.reverse()
     timelet = dict(zip(keys, map(int, timelet)))
-    for key in ('minutes', 'hours'):
+    for key in keys[:-1]:
         timelet.setdefault(key, 0)
     return datetime.timedelta(**timelet)
 
