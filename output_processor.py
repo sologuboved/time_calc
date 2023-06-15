@@ -17,3 +17,7 @@ def output_days(delta):
     else:
         postfix = 's'
     return f"{days} day{postfix}"
+
+
+def output_num(num):
+    return str(num)

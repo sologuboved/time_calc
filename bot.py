@@ -2,9 +2,9 @@ import logging
 
 from telegram.ext import Application, CommandHandler
 
-from calc_ops import process_datedelta, process_datelapse, process_timelapses
+from calc_ops import process_datedelta, process_datelapse, process_howmany, process_timelapses
 from helpers import report_exception, write_pid
-from output_processor import output_date, output_days, output_timelet
+from output_processor import output_date, output_days, output_num, output_timelet
 from userinfo import TOKEN
 
 logging.basicConfig(
@@ -41,6 +41,13 @@ async def timelapses(update, context):
     )
 
 
+async def howmany(update, context):
+    await context.bot.send_message(
+        update.message.chat_id,
+        output_num(process_howmany(get_query(update))),
+    )
+
+
 def get_query(update):
     return update['message']['text'].split(maxsplit=1)[-1].strip()
 
@@ -52,6 +59,7 @@ def main():
     application.add_handler(CommandHandler('datelapse', datelapse))
     application.add_handler(CommandHandler('datedelta', datedelta))
     application.add_handler(CommandHandler('timelapses', timelapses))
+    application.add_handler(CommandHandler('howmany', howmany))
     application.run_polling()
 
 
