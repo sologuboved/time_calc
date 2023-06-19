@@ -1,5 +1,6 @@
 import logging
 
+from telegram.constants import ParseMode
 from telegram.ext import Application, CommandHandler
 
 from calc_ops import (
@@ -26,6 +27,43 @@ async def start(update, context):
         update.message.chat_id,
         "Date and Time Calculator\nAdds/subtracts/multiplies hours, calculates dates",
     )
+
+
+async def info(update, context):
+    text = '''
+<b>Commands</b>
+/datelapse
+/datedelta
+/timelapses
+/howmany
+/datetimelapse
+/datetimedelta
+/dow
+
+<b>Date</b>
+<code>today</code>
+<code>11.12.2017</code> [11 December 2017]
+<code>11.12</code> [11 December same year as today]
+<code>11</code> [11 same month and year as today]
+
+<b>Datetimelet's Time Part</b>
+<code>4</code> [4 hours]
+<code>3:04</code> [3 hours 4 minutes]
+<code>2:03:04</code> [2 hours 3 minutes 4 seconds]
+
+<b>Days</b>
+<code>4</code> [4 days]
+
+<b>DoW</b>
+<code>Mon</code> <code>Tue</code> <code>Wed</code> <code>Thu</code> <code>Fri</code> <code>Sat</code> <code>Sun</code>
+
+<b>Timelet</b>
+<code>4</code> [4 seconds]
+<code>3:04</code> [3 minutes 4 seconds]
+<code>2:03:04</code> [2 hours 3 minutes 4 seconds]
+<code>1:02:03:04</code> [1 day 2 hours 3 minutes 4 seconds]
+'''
+    await context.bot.send_message(update.message.chat_id, text, parse_mode=ParseMode.HTML)
 
 
 async def datelapse(update, context):
@@ -91,6 +129,7 @@ def main():
     application.add_handler(CommandHandler('howmany', howmany))
     application.add_handler(CommandHandler('datetimelapse', datetimelapse))
     application.add_handler(CommandHandler('datetimedelta', datetimedelta))
+    application.add_handler(CommandHandler('dow', dow))
     application.run_polling()
 
 

@@ -95,12 +95,14 @@ def process_datetimelapse(query):
 def process_datetimedelta(query):
     beg, fin = query.split('-')
     datetimelets = list()
+    raw_date = 'today'
     for datetimelet in (beg, fin):
         datetimelet = datetimelet.split()
         if len(datetimelet) == 1:
-            datetimelets.append(process_datetimelet('today', datetimelet))
+            datetimelets.append(process_datetimelet(raw_date, datetimelet[0]))
         else:
             datetimelets.extend(process_datetimelet(*datetimelet))
+            raw_date = datetimelet[0]
     return max(datetimelets) - min(datetimelets)
 
 
