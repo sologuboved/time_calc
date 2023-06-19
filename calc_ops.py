@@ -41,6 +41,7 @@ def process_datelapse(query):
 
 
 def process_datedelta(query):
+    query = query.replace('-', ' ')
     date0, date1 = map(process_date, query.split())
     return abs(date1 - date0)
 
@@ -89,6 +90,10 @@ def process_datetimelapse(query):
     if res.day != datetimelet.day:
         print_date = True
     return res, print_date
+
+
+def process_datetimedelta(query):
+    query = query.split()
 
 
 if __name__ == '__main__':
