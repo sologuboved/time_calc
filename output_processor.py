@@ -3,12 +3,12 @@ def output_timelet(timelet):
 
 
 def output_date(date):
-    return f"{date:%d.%m.%Y}"
+    return f"{date:%d.%m.%Y, %a}"
 
 
 def output_datetimelet(datetimelet, print_date):
     if print_date:
-        return f"{datetimelet:%d.%m.%Y %H:%M}"
+        return f"{datetimelet:%d.%m.%Y, %a %H:%M}"
     else:
         return f"{datetimelet:%H:%M}"
 
