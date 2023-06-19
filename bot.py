@@ -7,11 +7,12 @@ from calc_ops import (
     process_datelapse,
     process_datetimedelta,
     process_datetimelapse,
+    process_dow,
     process_howmany,
     process_timelapses,
 )
 from helpers import report_exception, write_pid
-from output_processor import output_date, output_datetimelet, output_days, output_num, output_timelet
+from output_processor import output_date, output_datetimelet, output_days, output_dow, output_num, output_timelet
 from userinfo import TOKEN
 
 logging.basicConfig(
@@ -65,7 +66,14 @@ async def datetimelapse(update, context):
 async def datetimedelta(update, context):
     await context.bot.send_message(
         update.message.chat_id,
-        output_datetimelet(process_datetimedelta(get_query(update)), True),
+        output_datetimelet(process_datetimedelta(get_query(update)), include_date=True),
+    )
+
+
+async def dow(update, context):
+    await context.bot.send_message(
+        update.message.chat_id,
+        output_dow(process_dow(get_query(update))),
     )
 
 

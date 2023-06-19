@@ -71,10 +71,10 @@ def process_howmany(query):
 def process_datetimelapse(query):
     query = query.split()
     if len(query) == 4:
-        print_date = True
+        include_date = True
         date, timelet, sign, timelapse = query
     elif len(query) == 3:
-        print_date = False
+        include_date = False
         timelet, sign, timelapse = query
         date = 'today'
     else:
@@ -88,8 +88,8 @@ def process_datetimelapse(query):
     else:
         raise RuntimeError(f"Wrong sign: {sign}; should be '+' or '-'")
     if res.day != datetimelet.day:
-        print_date = True
-    return res, print_date
+        include_date = True
+    return res, include_date
 
 
 def process_datetimedelta(query):
@@ -102,6 +102,10 @@ def process_datetimedelta(query):
         else:
             datetimelets.extend(process_datetimelet(*datetimelet))
     return max(datetimelets) - min(datetimelets)
+
+
+def process_dow(query):
+    return process_date(query)
 
 
 if __name__ == '__main__':

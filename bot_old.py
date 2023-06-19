@@ -50,31 +50,14 @@ def dow(bot, update):
     bot.send_message(chat_id=chat_id, text=reply)
 
 
-def tbetw(bot, update):
-    # /tbetw 13.12.2017 12:28:0 / 12.12.2017 0:59:0
-    query = update['message']['text']
-    print('query:', query)
-    query = query.split()
-    try:
-        query = ' '.join(query[1:])
-    except IndexError:
-        query = ''
-    reply = time_between(query)
-    print('reply:', reply, '\n')
-    chat_id = update.message.chat_id
-    bot.send_message(chat_id=chat_id, text=reply)
-
-
 def main():
     updater = Updater(token=TOKEN)
     dispatcher = updater.dispatcher
 
     help_handler = CommandHandler('help', description)
-    tbetw_handler = CommandHandler('tbetw', tbetw)
     dow_handler = CommandHandler('dow', dow)
 
     dispatcher.add_handler(help_handler)
-    dispatcher.add_handler(tbetw_handler)
     dispatcher.add_handler(dow_handler)
 
     updater.start_polling()

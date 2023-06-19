@@ -6,8 +6,8 @@ def output_date(date):
     return f"{date:%d.%m.%Y, %a}"
 
 
-def output_datetimelet(datetimelet, print_date):
-    if print_date:
+def output_datetimelet(datetimelet, include_date):
+    if include_date:
         return f"{datetimelet:%d.%m.%Y, %a %H:%M}"
     else:
         return f"{datetimelet:%H:%M}"
@@ -20,6 +20,10 @@ def output_days(delta):
     else:
         postfix = 's'
     return f"{days} day{postfix}"
+
+
+def output_dow(date):
+    return f'{date:%a}!'
 
 
 def output_num(num):
