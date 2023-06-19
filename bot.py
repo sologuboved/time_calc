@@ -47,6 +47,7 @@ async def info(update, context):
 <code>11</code> [11 same month and year as today]
 
 <b>Datetimelet's Time Part</b>
+<code>now</code>
 <code>4</code> [4 hours]
 <code>3:04</code> [3 hours 4 minutes]
 <code>2:03:04</code> [2 hours 3 minutes 4 seconds]
