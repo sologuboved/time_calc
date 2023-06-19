@@ -5,6 +5,7 @@ from telegram.ext import Application, CommandHandler
 from calc_ops import (
     process_datedelta,
     process_datelapse,
+    process_datetimedelta,
     process_datetimelapse,
     process_howmany,
     process_timelapses,
@@ -61,6 +62,13 @@ async def datetimelapse(update, context):
     )
 
 
+async def datetimedelta(update, context):
+    await context.bot.send_message(
+        update.message.chat_id,
+        output_datetimelet(process_datetimedelta(get_query(update)), True),
+    )
+
+
 def get_query(update):
     return update['message']['text'].split(maxsplit=1)[-1].strip()
 
@@ -74,6 +82,7 @@ def main():
     application.add_handler(CommandHandler('timelapses', timelapses))
     application.add_handler(CommandHandler('howmany', howmany))
     application.add_handler(CommandHandler('datetimelapse', datetimelapse))
+    application.add_handler(CommandHandler('datetimedelta', datetimedelta))
     application.run_polling()
 
 

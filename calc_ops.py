@@ -42,8 +42,8 @@ def process_datelapse(query):
 
 def process_datedelta(query):
     query = query.replace('-', ' ')
-    date0, date1 = map(process_date, query.split())
-    return abs(date1 - date0)
+    dates = list(map(process_date, query.split()))
+    return max(dates) - min(dates)
 
 
 def process_howmany(query):
@@ -93,7 +93,15 @@ def process_datetimelapse(query):
 
 
 def process_datetimedelta(query):
-    query = query.split()
+    beg, fin = query.split('-')
+    datetimelets = list()
+    for datetimelet in (beg, fin):
+        datetimelet = datetimelet.split()
+        if len(datetimelet) == 1:
+            datetimelets.append(process_datetimelet('today', datetimelet))
+        else:
+            datetimelets.extend(process_datetimelet(*datetimelet))
+    return max(datetimelets) - min(datetimelets)
 
 
 if __name__ == '__main__':
