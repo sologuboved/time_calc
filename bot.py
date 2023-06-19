@@ -123,6 +123,7 @@ def get_query(update):
 def main():
     application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler('start', start))
+    application.add_handler(CommandHandler('help', info))
     application.add_handler(CommandHandler('datelapse', datelapse))
     application.add_handler(CommandHandler('datedelta', datedelta))
     application.add_handler(CommandHandler('timelapses', timelapses))
