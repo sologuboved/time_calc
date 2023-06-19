@@ -1,16 +1,16 @@
 import datetime
 
 
-def process_timelapse(timelet, seconds_first):
-    keys = ['hours', 'minutes', 'seconds']
-    timelet = timelet.strip().split(':')
-    if seconds_first:
-        keys.reverse()
-        timelet.reverse()
-    timelet = dict(zip(keys, map(int, timelet)))
+def process_timelapse(timelapse, zero_seconds):
+    keys = ['seconds', 'minutes', 'hours', 'days']
+    timelapse = timelapse.strip().split(':')
+    if zero_seconds:
+        timelapse.append(0)
+    timelapse.reverse()
+    timelapse = dict(zip(keys, map(int, timelapse)))
     for key in keys[:-1]:
-        timelet.setdefault(key, 0)
-    return datetime.timedelta(**timelet)
+        timelapse.setdefault(key, 0)
+    return datetime.timedelta(**timelapse)
 
 
 def process_date(date):
@@ -25,7 +25,9 @@ def process_date(date):
 
 
 def process_datetimelet(date, timelet):
-    return process_date(date) + process_timelapse(timelet, seconds_first=False)
+    if timelet == 'now':
+        return datetime.datetime.now()
+    return process_date(date) + process_timelapse(timelet, zero_seconds=True)
 
 
 if __name__ == '__main__':

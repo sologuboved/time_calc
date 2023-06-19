@@ -1,6 +1,6 @@
 import datetime
 
-from input_processor import process_date, process_timelapse
+from input_processor import process_date, process_datetimelet, process_timelapse
 
 
 def process_timelapses(query):
@@ -11,10 +11,10 @@ def process_timelapses(query):
             previous_sign = item
         else:
             if previous_sign == '+':
-                item = process_timelapse(item, seconds_first=True)
+                item = process_timelapse(item, zero_seconds=False)
                 res += item
             elif previous_sign == '-':
-                item = process_timelapse(item, seconds_first=True)
+                item = process_timelapse(item, zero_seconds=False)
                 res -= item
             elif previous_sign == '*':
                 item = int(item)
@@ -28,13 +28,13 @@ def process_timelapses(query):
 
 
 def process_datelapse(query):
-    date, sign, lapse = query.split()
+    date, sign, daylapse = query.split()
     date = process_date(date)
-    lapse = datetime.timedelta(days=int(lapse))
+    daylapse = datetime.timedelta(days=int(daylapse))
     if '+' in sign:
-        res = date + lapse
+        res = date + daylapse
     elif '-' in sign:
-        res = date - lapse
+        res = date - daylapse
     else:
         raise RuntimeError(f"Wrong sign: {sign}; should be '+' or '-'")
     return res
@@ -55,9 +55,9 @@ def process_howmany(query):
     else:
         raise RuntimeError(f"Wrong input: should include 1 or 2 dates & day of week")
     beg, fin = (process_date(date) for date in (beg, fin))
-    lapse = (fin - beg).days
-    res = lapse // 7
-    remainder = lapse % 7
+    daylapse = (fin - beg).days
+    res = daylapse // 7
+    remainder = daylapse % 7
     remaining_date = fin - datetime.timedelta(days=remainder)
     while remaining_date <= fin:
         if remaining_date.strftime('%a') == dow:
@@ -65,6 +65,30 @@ def process_howmany(query):
             break
         remaining_date += datetime.timedelta(1)
     return res
+
+
+def process_datetimelapse(query):
+    query = query.split()
+    if len(query) == 4:
+        print_date = True
+        date, timelet, sign, timelapse = query
+    elif len(query) == 3:
+        print_date = False
+        timelet, sign, timelapse = query
+        date = 'today'
+    else:
+        raise RuntimeError(f"Wrong input: should include (optional) date, time, sign, and time lapse")
+    datetimelet = process_datetimelet(date, timelet)
+    timelapse = process_timelapse(timelapse, zero_seconds=True)
+    if '+' in sign:
+        res = datetimelet + timelapse
+    elif '-' in sign:
+        res = datetimelet - timelapse
+    else:
+        raise RuntimeError(f"Wrong sign: {sign}; should be '+' or '-'")
+    if res.day != datetimelet.day:
+        print_date = True
+    return res, print_date
 
 
 if __name__ == '__main__':

@@ -6,8 +6,11 @@ def output_date(date):
     return f"{date:%d.%m.%Y}"
 
 
-def output_datetimelet(datetimelet):
-    return f"{datetimelet:%d.%m.%Y %H:%M:%S}"
+def output_datetimelet(datetimelet, print_date):
+    if print_date:
+        return f"{datetimelet:%d.%m.%Y %H:%M}"
+    else:
+        return f"{datetimelet:%H:%M}"
 
 
 def output_days(delta):
