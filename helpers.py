@@ -11,10 +11,10 @@ def report_wrong_input(func):
     async def wrapper(update, context):
         try:
             await func(update, context)
-        except ValueError:
+        except Exception:
             await context.bot.send_message(
                 chat_id=update.message.chat_id,
-                text=f"Wrong input: Not enough data",
+                text=f"Wrong input",
             )
             traceback_msg = traceback.format_exc()
             logging.error(traceback_msg)
