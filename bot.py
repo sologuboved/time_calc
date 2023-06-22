@@ -12,7 +12,7 @@ from calc_ops import (
     process_howmany,
     process_timelapses,
 )
-from helpers import write_pid
+from helpers import report_wrong_input, write_pid
 from output_processor import output_date, output_datetimelet, output_days, output_dow, output_num, output_timelet
 from userinfo import TOKEN
 
@@ -67,6 +67,7 @@ async def info(update, context):
     await context.bot.send_message(update.message.chat_id, text, parse_mode=ParseMode.HTML)
 
 
+@report_wrong_input
 async def datelapse(update, context):
     await context.bot.send_message(
         update.message.chat_id,
@@ -74,6 +75,7 @@ async def datelapse(update, context):
     )
 
 
+@report_wrong_input
 async def datedelta(update, context):
     await context.bot.send_message(
         update.message.chat_id,
@@ -81,6 +83,7 @@ async def datedelta(update, context):
     )
 
 
+@report_wrong_input
 async def timelapses(update, context):
     await context.bot.send_message(
         update.message.chat_id,
@@ -88,6 +91,7 @@ async def timelapses(update, context):
     )
 
 
+@report_wrong_input
 async def howmany(update, context):
     await context.bot.send_message(
         update.message.chat_id,
@@ -95,6 +99,7 @@ async def howmany(update, context):
     )
 
 
+@report_wrong_input
 async def datetimelapse(update, context):
     await context.bot.send_message(
         update.message.chat_id,
@@ -102,6 +107,7 @@ async def datetimelapse(update, context):
     )
 
 
+@report_wrong_input
 async def datetimedelta(update, context):
     await context.bot.send_message(
         update.message.chat_id,
@@ -109,6 +115,7 @@ async def datetimedelta(update, context):
     )
 
 
+@report_wrong_input
 async def dow(update, context):
     await context.bot.send_message(
         update.message.chat_id,

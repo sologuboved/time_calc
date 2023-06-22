@@ -1,6 +1,24 @@
+from functools import wraps
+import logging
 import os
 import re
 import sys
+import traceback
+
+
+def report_wrong_input(func):
+    @wraps(func)
+    async def wrapper(update, context):
+        try:
+            await func(update, context)
+        except ValueError:
+            await context.bot.send_message(
+                chat_id=update.message.chat_id,
+                text=f"Wrong input: Not enough data",
+            )
+            traceback_msg = traceback.format_exc()
+            logging.error(traceback_msg)
+    return wrapper
 
 
 def get_base_dir():
