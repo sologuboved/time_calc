@@ -1,31 +1,6 @@
-import asyncio
-from functools import wraps
-import logging
 import os
 import re
 import sys
-import traceback
-
-from telegram import Bot
-
-from userinfo import TELETRACEBACKS_CHAT_ID, TOKEN
-
-
-def report_exception(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except Exception as e:
-            notification = f"({func.__name__}, called with {args}, {kwargs}) {type(e).__name__}: {e}"
-            asyncio.run(Bot(token=TOKEN).send_message(
-                chat_id=TELETRACEBACKS_CHAT_ID,
-                text=notification,
-                disable_web_page_preview=True,
-            ))
-            traceback_msg = traceback.format_exc()
-            logging.error(traceback_msg)
-    return wrapper
 
 
 def get_base_dir():

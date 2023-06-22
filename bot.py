@@ -12,7 +12,7 @@ from calc_ops import (
     process_howmany,
     process_timelapses,
 )
-from helpers import report_exception, write_pid
+from helpers import write_pid
 from output_processor import output_date, output_datetimelet, output_days, output_dow, output_num, output_timelet
 from userinfo import TOKEN
 
@@ -120,7 +120,6 @@ def get_query(update):
     return update['message']['text'].split(maxsplit=1)[-1].strip()
 
 
-@report_exception
 def main():
     application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler('start', start))
